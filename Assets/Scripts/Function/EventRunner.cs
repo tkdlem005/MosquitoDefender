@@ -18,16 +18,16 @@ public class EventRunner : MonoBehaviour
     [Header("러너의 동작 모드")]
     [SerializeField] private RunnerMode _mode = RunnerMode.미선택;
 
-    [SerializeReference, Space(20f), Header("시작 조건 설정")]
+    [Space(20f), Header("시작 조건 설정")]
     public List<CustomCondition> _customStartConditions;
 
     [Header("모든 조건을 만족해야 통과")]
     public bool _necessaryAndSufficientStartCondition = false;
 
-    [SerializeReference, Space(20f), Header("실행할 이벤트 설정"), Tooltip("설정한 모든 Event들을 위에서 아래로 순서대로 실행합니다.")]
+    [Space(20f), Header("실행할 이벤트 설정"), Tooltip("설정한 모든 Event들을 위에서 아래로 순서대로 실행합니다.")]
     public List<CustomEvent> _customEvents;
 
-    [SerializeReference, Space(20f), Header("종료 조건 설정")]
+    [Space(20f), Header("종료 조건 설정")]
     public List<CustomCondition> _customEndConditions;
 
     [Header("모든 조건을 만족해야 통과")]

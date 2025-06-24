@@ -4,37 +4,39 @@ using UnityEngine;
 
 public class GridVisualDeberger : MonoBehaviour
 {
-    public float _cellSize = 1f;
-    public int _gridWidth = 10;
-    public int _gridHeight = 10;
+    [SerializeField] private NavGridData _gridData;
+    [SerializeField] private bool _bIsSeeLabel = true;
 
-    // 빨간색으로 표시할 내부 좌표 목록
-    public List<Vector3> RedCells = new();
-
-    private Dictionary<Vector3, bool> _testGrid = new();
+    private Dictionary<Vector2Int, bool> _visualGrid = new();
 
     private void OnValidate()
     {
-        GenerateTestGrid();
+        if (_gridData == null)
+            return;
+
+        GenerateVisualGrid();
     }
 
-    private void GenerateTestGrid()
+    private void GenerateVisualGrid()
     {
-        _testGrid.Clear();
+        _visualGrid.Clear();
 
-        int halfWidth = _gridWidth / 2;
-        int halfHeight = _gridHeight / 2;
+        int width = _gridData.GridWidth;
+        int height = _gridData.GridHeight;
+
+        int halfWidth = width / 2;
+        int halfHeight = height / 2;
 
         for (int x = -halfWidth; x < halfWidth; x++)
         {
             for (int z = -halfHeight; z < halfHeight; z++)
             {
-                Vector3 pos = new(x, 0, z);
+                Vector2Int pos = new(x, z);
 
                 bool isEdge = (x == -halfWidth || x == halfWidth - 1 || z == -halfHeight || z == halfHeight - 1);
-                bool isMarked = RedCells.Contains(pos);
+                bool isNonWalkable = _gridData.CustomNonWalkables != null && _gridData.CustomNonWalkables.Contains(pos);
 
-                _testGrid[pos] = isEdge || isMarked;
+                _visualGrid[pos] = isEdge || isNonWalkable;
             }
         }
     }
@@ -42,26 +44,34 @@ public class GridVisualDeberger : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (_testGrid == null || _testGrid.Count == 0)
-            GenerateTestGrid();
+        if (_gridData == null)
+            return;
 
-        foreach (var kvp in _testGrid)
+        if (_visualGrid == null || _visualGrid.Count == 0)
+            GenerateVisualGrid();
+
+        foreach (var kvp in _visualGrid)
         {
-            var pos = kvp.Key;
+            Vector2Int pos = kvp.Key;
             bool isRed = kvp.Value;
 
-            Gizmos.color = isRed ? Color.red : Color.green;
-            Gizmos.DrawWireCube(GetWorldPosition(pos), Vector3.one * _cellSize * 0.9f);
+            float y = _gridData.DefaultY;
+            foreach (var custom in _gridData.CustomHeights)
+            {
+                if (custom.XZ == pos)
+                {
+                    y = custom.Y;
+                    break;
+                }
+            }
 
-            Vector3 labelPos = GetWorldPosition(pos);
-            labelPos.y += 0.1f;
-            Handles.Label(labelPos, $"{pos.x}, {pos.y}, {pos.z}");
+            Gizmos.color = isRed ? Color.red : Color.green;
+            Vector3 worldPos = new Vector3(pos.x * _gridData.CellSize, y * _gridData.CellSize, pos.y * _gridData.CellSize);
+            Gizmos.DrawWireCube(worldPos, Vector3.one * _gridData.CellSize * 0.9f);
+
+            if(_bIsSeeLabel)
+                Handles.Label(worldPos + Vector3.up * 0.1f, $"{pos.x},{y},{pos.y}");
         }
     }
 #endif
-
-    private Vector3 GetWorldPosition(Vector3 gridPos)
-    {
-        return new Vector3(gridPos.x * _cellSize, gridPos.y, gridPos.z * _cellSize);
-    }
 }
