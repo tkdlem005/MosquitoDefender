@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class Character : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] protected Rigidbody _characterRigidBody;
+    [SerializeField] protected Collider _characterCollider;
+
+    public Rigidbody CharacterRigidBody { get { return _characterRigidBody; } }
+
+    public Collider CharacterCollider { get { return _characterCollider; } }
+
+    protected virtual void Awake()
     {
-        
+        TryGetComponent<Rigidbody>(out _characterRigidBody);
+        TryGetComponent<Collider>(out _characterCollider);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected virtual void Start() { }
+
+    protected virtual void Update() { }
 }
