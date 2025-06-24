@@ -122,6 +122,171 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &164409440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 164409442}
+  - component: {fileID: 164409441}
+  m_Layer: 0
+  m_Name: Grid visual Debuger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &164409441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164409440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 104146cc5490a0a4cb2e6f71f8d1718d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellSize: 1
+  _gridWidth: 19
+  _gridHeight: 19
+  RedCells:
+  - {x: -7, y: -6}
+  - {x: -6, y: -6}
+  - {x: -5, y: -6}
+  - {x: -4, y: -6}
+  - {x: -3, y: -6}
+  - {x: -1, y: -6}
+  - {x: 0, y: -6}
+  - {x: 1, y: -6}
+  - {x: 2, y: -6}
+  - {x: 3, y: -6}
+  - {x: 5, y: -6}
+  - {x: 6, y: -6}
+  - {x: -6, y: -4}
+  - {x: -5, y: -4}
+  - {x: -4, y: -4}
+  - {x: -4, y: -3}
+  - {x: -5, y: -3}
+  - {x: -6, y: -3}
+  - {x: -6, y: -2}
+  - {x: -5, y: -2}
+  - {x: -4, y: -2}
+  - {x: -4, y: 0}
+  - {x: -4, y: 1}
+  - {x: -4, y: 2}
+  - {x: -4, y: 3}
+  - {x: -4, y: 5}
+  - {x: -6, y: 5}
+  - {x: -6, y: 3}
+  - {x: -6, y: 2}
+  - {x: -6, y: 1}
+  - {x: -6, y: 0}
+  - {x: -2, y: 0}
+  - {x: -2, y: 3}
+  - {x: 0, y: 3}
+  - {x: -1, y: 3}
+  - {x: -1, y: 0}
+  - {x: 0, y: 0}
+  - {x: -2, y: 5}
+  - {x: -1, y: 5}
+  - {x: 0, y: 5}
+  - {x: 1, y: 5}
+  - {x: 3, y: 5}
+  - {x: 5, y: 5}
+  - {x: 5, y: 4}
+  - {x: 5, y: 3}
+  - {x: 5, y: 2}
+  - {x: 5, y: 1}
+  - {x: 3, y: 4}
+  - {x: 3, y: 3}
+  - {x: 3, y: 2}
+  - {x: 3, y: 1}
+  - {x: 1, y: 3}
+  - {x: 1, y: 0}
+  - {x: 3, y: 0}
+  - {x: 5, y: 0}
+  - {x: 5, y: -7}
+  - {x: 6, y: -7}
+  - {x: 5, y: -6}
+  - {x: 4, y: -4}
+  - {x: 5, y: -4}
+  - {x: 6, y: -4}
+  - {x: 6, y: -3}
+  - {x: 5, y: -3}
+  - {x: 4, y: -3}
+  - {x: 4, y: -2}
+  - {x: 5, y: -2}
+  - {x: 6, y: -2}
+  - {x: 2, y: -2}
+  - {x: 1, y: -2}
+  - {x: 1, y: -4}
+  - {x: 2, y: -4}
+  - {x: -1, y: -4}
+  - {x: -1, y: -3}
+  - {x: -1, y: -2}
+  - {x: -2, y: -2}
+  - {x: -2, y: -3}
+  - {x: -2, y: -4}
+  - {x: -7, y: 6}
+  - {x: -6, y: 6}
+  - {x: -5, y: 6}
+  - {x: -4, y: 6}
+  - {x: -5, y: 5}
+  - {x: -7, y: 5}
+  - {x: -2, y: 1}
+  - {x: -1, y: 1}
+  - {x: 0, y: 1}
+  - {x: 1, y: 1}
+  - {x: -7, y: -8}
+  - {x: -6, y: -8}
+  - {x: -5, y: -8}
+  - {x: -4, y: -8}
+  - {x: -3, y: -8}
+  - {x: -1, y: -7}
+  - {x: 0, y: -7}
+  - {x: 1, y: -7}
+  - {x: 2, y: -7}
+  - {x: 3, y: -7}
+  - {x: -7, y: -4}
+  - {x: -7, y: -3}
+  - {x: -7, y: -2}
+  - {x: -7, y: 0}
+  - {x: -7, y: 1}
+  - {x: -7, y: 2}
+  - {x: -7, y: 3}
+  - {x: 1, y: 7}
+  - {x: 0, y: 7}
+  - {x: -1, y: 7}
+  - {x: -2, y: 7}
+  - {x: 6, y: 5}
+  - {x: 6, y: 4}
+  - {x: 6, y: 3}
+  - {x: 6, y: 2}
+  - {x: 6, y: 1}
+  - {x: 6, y: 0}
+  - {x: 5, y: 6}
+  - {x: 6, y: 6}
+  - {x: 3, y: 6}
+--- !u!4 &164409442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164409440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &360295592
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +392,7 @@ Transform:
   m_GameObject: {fileID: 360295592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1, z: 0}
+  m_LocalPosition: {x: -8, y: 1.1, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -278,9 +443,126 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5b227a420f9574c9ce6707c8cf6947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nonWalkableCells: []
-  _gridWidth: 30
-  _gridHeight: 30
+  _nonWalkableCells:
+  - {x: -7, y: -6}
+  - {x: -6, y: -6}
+  - {x: -5, y: -6}
+  - {x: -4, y: -6}
+  - {x: -3, y: -6}
+  - {x: -1, y: -6}
+  - {x: 0, y: -6}
+  - {x: 1, y: -6}
+  - {x: 2, y: -6}
+  - {x: 3, y: -6}
+  - {x: 5, y: -6}
+  - {x: 6, y: -6}
+  - {x: -6, y: -4}
+  - {x: -5, y: -4}
+  - {x: -4, y: -4}
+  - {x: -4, y: -3}
+  - {x: -5, y: -3}
+  - {x: -6, y: -3}
+  - {x: -6, y: -2}
+  - {x: -5, y: -2}
+  - {x: -4, y: -2}
+  - {x: -4, y: 0}
+  - {x: -4, y: 1}
+  - {x: -4, y: 2}
+  - {x: -4, y: 3}
+  - {x: -4, y: 5}
+  - {x: -6, y: 5}
+  - {x: -6, y: 3}
+  - {x: -6, y: 2}
+  - {x: -6, y: 1}
+  - {x: -6, y: 0}
+  - {x: -2, y: 0}
+  - {x: -2, y: 3}
+  - {x: 0, y: 3}
+  - {x: -1, y: 3}
+  - {x: -1, y: 0}
+  - {x: 0, y: 0}
+  - {x: -2, y: 5}
+  - {x: -1, y: 5}
+  - {x: 0, y: 5}
+  - {x: 1, y: 5}
+  - {x: 3, y: 5}
+  - {x: 5, y: 5}
+  - {x: 5, y: 4}
+  - {x: 5, y: 3}
+  - {x: 5, y: 2}
+  - {x: 5, y: 1}
+  - {x: 3, y: 4}
+  - {x: 3, y: 3}
+  - {x: 3, y: 2}
+  - {x: 3, y: 1}
+  - {x: 1, y: 3}
+  - {x: 1, y: 0}
+  - {x: 3, y: 0}
+  - {x: 5, y: 0}
+  - {x: 5, y: -7}
+  - {x: 6, y: -7}
+  - {x: 5, y: -6}
+  - {x: 4, y: -4}
+  - {x: 5, y: -4}
+  - {x: 6, y: -4}
+  - {x: 6, y: -3}
+  - {x: 5, y: -3}
+  - {x: 4, y: -3}
+  - {x: 4, y: -2}
+  - {x: 5, y: -2}
+  - {x: 6, y: -2}
+  - {x: 2, y: -2}
+  - {x: 1, y: -2}
+  - {x: 1, y: -4}
+  - {x: 2, y: -4}
+  - {x: -1, y: -4}
+  - {x: -1, y: -3}
+  - {x: -1, y: -2}
+  - {x: -2, y: -2}
+  - {x: -2, y: -3}
+  - {x: -2, y: -4}
+  - {x: -7, y: 6}
+  - {x: -6, y: 6}
+  - {x: -5, y: 6}
+  - {x: -4, y: 6}
+  - {x: -5, y: 5}
+  - {x: -7, y: 5}
+  - {x: -2, y: 1}
+  - {x: -1, y: 1}
+  - {x: 0, y: 1}
+  - {x: 1, y: 1}
+  - {x: -7, y: -8}
+  - {x: -6, y: -8}
+  - {x: -5, y: -8}
+  - {x: -4, y: -8}
+  - {x: -3, y: -8}
+  - {x: -1, y: -7}
+  - {x: 0, y: -7}
+  - {x: 1, y: -7}
+  - {x: 2, y: -7}
+  - {x: 3, y: -7}
+  - {x: -7, y: -4}
+  - {x: -7, y: -3}
+  - {x: -7, y: -2}
+  - {x: -7, y: 0}
+  - {x: -7, y: 1}
+  - {x: -7, y: 2}
+  - {x: -7, y: 3}
+  - {x: 1, y: 7}
+  - {x: 0, y: 7}
+  - {x: -1, y: 7}
+  - {x: -2, y: 7}
+  - {x: 6, y: 5}
+  - {x: 6, y: 4}
+  - {x: 6, y: 3}
+  - {x: 6, y: 2}
+  - {x: 6, y: 1}
+  - {x: 6, y: 0}
+  - {x: 5, y: 6}
+  - {x: 6, y: 6}
+  - {x: 3, y: 6}
+  _gridWidth: 19
+  _gridHeight: 19
   _cellSize: 1
 --- !u!1 &598432968
 GameObject:
@@ -392,7 +674,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -601,13 +883,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.42001376, y: -0, z: -0, w: 0.9075178}
+  m_LocalPosition: {x: 0, y: 12.19, z: -18.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 49.671, y: 0, z: 0}
 --- !u!1 &1092786211
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,3 +1103,4 @@ SceneRoots:
   - {fileID: 598432969}
   - {fileID: 1280431374}
   - {fileID: 360295597}
+  - {fileID: 164409442}
