@@ -9,9 +9,9 @@ public class GridVisualDeberger : MonoBehaviour
     public int _gridHeight = 10;
 
     // »¡°£»öÀ¸·Î Ç¥½ÃÇÒ ³»ºÎ ÁÂÇ¥ ¸ñ·Ï
-    public List<Vector2Int> RedCells = new();
+    public List<Vector3> RedCells = new();
 
-    private Dictionary<Vector2Int, bool> _testGrid = new();
+    private Dictionary<Vector3, bool> _testGrid = new();
 
     private void OnValidate()
     {
@@ -27,12 +27,11 @@ public class GridVisualDeberger : MonoBehaviour
 
         for (int x = -halfWidth; x < halfWidth; x++)
         {
-            for (int y = -halfHeight; y < halfHeight; y++)
+            for (int z = -halfHeight; z < halfHeight; z++)
             {
-                Vector2Int pos = new(x, y);
+                Vector3 pos = new(x, 0, z);
 
-                // ¿Ü°û Á¶°Ç
-                bool isEdge = (x == -halfWidth || x == halfWidth - 1 || y == -halfHeight || y == halfHeight - 1);
+                bool isEdge = (x == -halfWidth || x == halfWidth - 1 || z == -halfHeight || z == halfHeight - 1);
                 bool isMarked = RedCells.Contains(pos);
 
                 _testGrid[pos] = isEdge || isMarked;
@@ -56,13 +55,13 @@ public class GridVisualDeberger : MonoBehaviour
 
             Vector3 labelPos = GetWorldPosition(pos);
             labelPos.y += 0.1f;
-            Handles.Label(labelPos, $"{pos.x},{pos.y}");
+            Handles.Label(labelPos, $"{pos.x}, {pos.y}, {pos.z}");
         }
     }
 #endif
 
-    private Vector3 GetWorldPosition(Vector2Int gridPos)
+    private Vector3 GetWorldPosition(Vector3 gridPos)
     {
-        return new Vector3(gridPos.x * _cellSize, 0, gridPos.y * _cellSize);
+        return new Vector3(gridPos.x * _cellSize, gridPos.y, gridPos.z * _cellSize);
     }
 }

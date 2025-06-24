@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputManager : MonoBehaviour
+public class InputManager : ManagerBase
 {
     public static InputManager Instance { get; private set; }
 
@@ -14,13 +14,17 @@ public class InputManager : MonoBehaviour
     private float _inputX = 0.0f;
     private float _inputZ = 0.0f;
 
-    private void Awake()
+    private void Awake() => Initialize();
+
+    protected override void Initialize()
     {
         if (!Instance)
             Instance = this;
 
         else
             Destroy(this.gameObject);
+
+        InitializeEnd();
     }
 
     public void ClearReservedDirection() => _reservedDirection = MoveDirection.None;

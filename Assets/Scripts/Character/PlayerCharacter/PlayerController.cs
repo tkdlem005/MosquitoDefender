@@ -8,14 +8,14 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerCharacter _owner;
 
-    private Vector2Int _currentGridPos;
+    private Vector2Int _currentXZ;
     private Vector3 _targetWorldPos;
     private bool _isMoving = false;
 
     private void Start()
     {
         _owner = PlayerCharacter.Instance;
-        _currentGridPos = NavGridManager.Instance.GetGridPosition(transform.position);
+        _currentXZ = NavGridManager.Instance.GetXZFromWorld(transform.position);
         _targetWorldPos = transform.position;
     }
 
@@ -26,18 +26,23 @@ public class PlayerController : MonoBehaviour
         MoveDirection dir = InputManager.Instance.ReservedDirection;
         if (dir == MoveDirection.None) return;
 
-        Vector2Int offset = DirectionToVector(dir);
-        Vector2Int nextGrid = _currentGridPos + offset;
+        Vector2Int offsetXZ = DirectionToXZOffset(dir);
+        Vector2Int nextXZ = _currentXZ + offsetXZ;
 
-        if (NavGridManager.Instance.IsWalkable(nextGrid))
+        if (NavGridManager.Instance.TryGetCell(nextXZ, out var nextCell) &&
+            nextCell._bIsWalkable)
         {
-            _currentGridPos = nextGrid;
-            _targetWorldPos = NavGridManager.Instance.GetWorldPosition(nextGrid);
+            _currentXZ = nextCell._gridPosXZ;
+
+            _targetWorldPos = NavGridManager.Instance.GetWorldPosition(_currentXZ);
+
             _owner.MoveTo(_targetWorldPos);
             _isMoving = true;
         }
         else
+        {
             OnArrived();
+        }
     }
 
     public void OnArrived()
@@ -46,7 +51,7 @@ public class PlayerController : MonoBehaviour
         _isMoving = false;
     }
 
-    private Vector2Int DirectionToVector(MoveDirection dir)
+    private Vector2Int DirectionToXZOffset(MoveDirection dir)
     {
         return dir switch
         {
@@ -58,3 +63,4 @@ public class PlayerController : MonoBehaviour
         };
     }
 }
+

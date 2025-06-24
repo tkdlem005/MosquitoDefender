@@ -5,7 +5,8 @@ using UnityEngine;
 
 public enum EventList
 {
-    None
+    None,
+    EManagerAwake
 }
 
 public class EventManager

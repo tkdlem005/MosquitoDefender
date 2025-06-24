@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoroutineDelegator : MonoBehaviour
+public class CoroutineDelegator : ManagerBase
 {
     public static CoroutineDelegator Instance { get; private set; }
 
     public Dictionary<string, Coroutine> _coroutineDictionary = new Dictionary<string, Coroutine>();
 
-    private void Awake()
+    private void Awake() => Initialize();
+
+    protected override void Initialize()
     {
-        if(!Instance) Instance = this;
+        if (!Instance) Instance = this;
         else Destroy(gameObject);
+
+        InitializeEnd();
     }
 
     public Coroutine ExecuteCoroutine(string id, IEnumerator routine)

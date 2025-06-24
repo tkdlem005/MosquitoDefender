@@ -1,105 +1,160 @@
+using System.Collections.Generic;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class NavGridManager : MonoBehaviour
+public class NavGridManager : ManagerBase
 {
-    public static NavGridManager Instance { get ; private set; }
+    public static NavGridManager Instance { get; private set; }
 
-    #region Container
-    [SerializeField] private List<Vector2Int> _nonWalkableCells = new List<Vector2Int>();
+    [SerializeField] private NavGridData _gridData;
 
     private Dictionary<Vector2Int, GridCell> _grid = new();
-    #endregion
+    private Dictionary<Vector2Int, bool> _cleanStatus = new();
 
-    [SerializeField] private int _gridWidth = 20;
-    [SerializeField] private int _gridHeight = 20;
-    [SerializeField] private float _cellSize = 1f;
+    private void Awake() => Initialize();
 
-    private void Awake()
+    protected override void Initialize()
     {
         if (!Instance) Instance = this;
         else Destroy(gameObject);
 
         InitializeGrid();
+        InitializeEnd();
     }
-
     private void InitializeGrid()
     {
-        for (int x = -_gridWidth / 2; x < _gridWidth / 2; x++)
+        if (_gridData == null)
         {
-            for(int y = -_gridHeight / 2; y < _gridHeight / 2; y++)
+            Debug.LogError("[NavGridManager] GridData (ScriptableObject) is not assigned!");
+            return;
+        }
+
+        _grid.Clear();
+        _cleanStatus.Clear();
+
+        int width = _gridData.GridWidth;
+        int height = _gridData.GridHeight;
+        float defaultY = _gridData.DefaultY;
+        float cellSize = _gridData.CellSize;
+
+        for (int x = -width / 2; x < width / 2; x++)
+        {
+            for (int z = -height / 2; z < height / 2; z++)
             {
-                Vector2Int pos = new(x, y);
-                _grid[pos] = new GridCell(pos, true);
+                Vector2Int posXZ = new(x, z);
+                float heightY = GetCustomHeight(posXZ, defaultY);
+                bool isWalkable = true;
+
+                _grid[posXZ] = new GridCell(posXZ, heightY, isWalkable);
             }
         }
 
-        SetNonWalkableCells();
+        SetCustomNonWalkables();
         SetBoundaryCellsNonWalkable();
+
+        foreach (var kvp in _grid)
+        {
+            if (kvp.Value._bIsWalkable)
+            {
+                _cleanStatus[kvp.Key] = kvp.Value._bIsClean;
+            }
+        }
     }
 
-    #region Setter
-    private void SetNonWalkableCells()
+    private void SetCustomNonWalkables()
     {
-        foreach (var pos in _nonWalkableCells) 
+        if (_gridData.CustomNonWalkables == null)
+            return;
+
+        foreach (var pos in _gridData.CustomNonWalkables)
         {
-            if (_grid.ContainsKey(pos))
-                _grid[pos]._bIsWalkable = false;
-            else
-                Debug.LogWarning($"Non-Walkable Cell {pos} is outside of grid bounds");
+            if (_grid.TryGetValue(pos, out var cell))
+            {
+                cell._bIsWalkable = false;
+            }
         }
     }
 
     private void SetBoundaryCellsNonWalkable()
     {
-        foreach (var pos in _grid.Keys)
+        int width = _gridData.GridWidth;
+        int height = _gridData.GridHeight;
+
+        foreach (var kvp in _grid)
         {
-            if (pos.x == -_gridWidth / 2 || pos.x == _gridWidth / 2 - 1 || pos.y == -_gridHeight / 2 || pos.y == _gridHeight / 2 - 1)
+            Vector2Int pos = kvp.Key;
+            if (pos.x == -width / 2 || pos.x == width / 2 - 1 ||
+                pos.y == -height / 2 || pos.y == height / 2 - 1)
             {
-                _grid[pos]._bIsWalkable = false;
+                kvp.Value._bIsWalkable = false;
             }
         }
     }
-    #endregion
 
-    public Vector3 GetWorldPosition(Vector2Int gridPos)
+    public void SetCleanStatus(Vector2Int pos, bool isClean)
     {
-        return new Vector3(gridPos.x * _cellSize, PlayerCharacter.Instance.transform.position.y, gridPos.y * _cellSize);
+        if (_cleanStatus.ContainsKey(pos))
+        {
+            _cleanStatus[pos] = isClean;
+            if (_grid.TryGetValue(pos, out var cell))
+            {
+                cell._bIsClean = isClean;
+            }
+        }
+    }
+    private float GetCustomHeight(Vector2Int pos, float defaultY)
+    {
+        foreach (var custom in _gridData.CustomHeights)
+        {
+            if (custom.XZ == pos)
+                return custom.Y;
+        }
+        return defaultY;
     }
 
-    public Vector2Int GetGridPosition(Vector3 worldPos)
+    public bool TryGetCleanStatus(Vector2Int pos, out bool isClean)
     {
-        int x = Mathf.RoundToInt(worldPos.x / _cellSize);
-        int y = Mathf.RoundToInt(worldPos.z / _cellSize);
-
-        return new Vector2Int(x, y);
+        return _cleanStatus.TryGetValue(pos, out isClean);
     }
 
-    public bool IsWalkable(Vector2Int gridPos) => _grid.ContainsKey(gridPos) && _grid[gridPos]._bIsWalkable;
+
+    public Vector3 GetWorldPosition(Vector2Int xz)
+    {
+        if (_grid.TryGetValue(xz, out var cell))
+            return new Vector3(xz.x * _gridData.CellSize, cell._hegihtY * _gridData.CellSize, xz.y * _gridData.CellSize);
+        return Vector3.zero;
+    }
+
+    public Vector2Int GetXZFromWorld(Vector3 worldPos)
+    {
+        int x = Mathf.RoundToInt(worldPos.x / _gridData.CellSize);
+        int z = Mathf.RoundToInt(worldPos.z / _gridData.CellSize);
+        return new Vector2Int(x, z);
+    }
+
+    public bool TryGetCell(Vector2Int xz, out GridCell cell) => _grid.TryGetValue(xz, out cell);
+
+    public Dictionary<Vector2Int, bool> GetCleanStatusDictionary() => _cleanStatus;
+
+    public bool IsWalkable(Vector2Int xz) => _grid.TryGetValue(xz, out var cell) && cell._bIsWalkable;
 
     public Dictionary<Vector2Int, GridCell> GetGrid() => _grid;
 
-#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (_grid == null) return;
+        if (_grid == null || _grid.Count == 0) return;
 
-        foreach(var cell in _grid.Values)
+        foreach (var cell in _grid.Values)
         {
             Gizmos.color = cell._bIsWalkable ? Color.green : Color.red;
-            Gizmos.DrawWireCube(GetWorldPosition(cell._gridPos), Vector3.one * _cellSize * 0.9f);
+            Vector3 pos = new(cell._gridPosXZ.x * _gridData.CellSize, cell._hegihtY * _gridData.CellSize, cell._gridPosXZ.y * _gridData.CellSize);
+            Gizmos.DrawWireCube(pos, Vector3.one * _gridData.CellSize * 0.9f);
 
-
-            Vector3 labelPos = GetWorldPosition(cell._gridPos);
-            labelPos.y += 0.1f;
-            Handles.Label(labelPos, $"{cell._gridPos.x},{cell._gridPos.y}");
-
+#if UNITY_EDITOR
+            Handles.Label(pos + Vector3.up * 0.1f, $"{cell._gridPosXZ.x},{cell._hegihtY},{cell._gridPosXZ.y}");
+#endif
         }
     }
-#endif
 }
