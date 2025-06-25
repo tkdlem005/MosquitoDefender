@@ -15,6 +15,8 @@ public class PlayerCharacter : Character
     [SerializeField] private float _maxGasAmount = 50f;
 
     private Vector3? _moveTarget = null;
+    private float _lastY;
+    private float _lastPitchAngle = 0f;
 
     public float MoveSpeed => _moveSpeed;
     public float RotationSpeed => _rotationSpeed;
@@ -60,46 +62,77 @@ public class PlayerCharacter : Character
 
     private void LateUpdate()
     {
+        float currentY = transform.position.y;
+        float yaw = transform.rotation.eulerAngles.y;
+        float pitchAngle = 0f;
+        bool forceSnapRotation = false;
+        bool isRampArea = false;
+
+        float verticalDiff = 0f;
+
+        if (_moveTarget.HasValue) verticalDiff = _moveTarget.Value.y - currentY;
+        else verticalDiff = currentY - _lastY;
+
         if (_moveTarget.HasValue)
         {
-            Vector3 direction = (_moveTarget.Value - transform.position);
-            direction.y = 0f;
+            Vector3 direction = _moveTarget.Value - transform.position;
+            Vector3 flatDirection = direction;
+            flatDirection.y = 0f;
 
-            if (direction.sqrMagnitude > 0.001f)
+            if (flatDirection.sqrMagnitude > 0.001f)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
+                Quaternion targetYawRotation = Quaternion.LookRotation(flatDirection.normalized);
+                yaw = targetYawRotation.eulerAngles.y;
             }
         }
 
-        CheckAndRotateOnFloorTransition();
+        if (Mathf.Abs(currentY - 0.6f) < 0.05f || Mathf.Abs(currentY - 1.6f) < 0.05f)
+        {
+            isRampArea = true;
+
+            // ÀÌµ¿ Áß
+            if (_moveTarget.HasValue)
+            {
+                pitchAngle = verticalDiff < 0 ? 15f : -15f;
+                _lastPitchAngle = pitchAngle;
+            }
+            else
+            {
+                pitchAngle = _lastPitchAngle;
+            }
+
+            forceSnapRotation = true;
+        }
+        else if (_moveTarget.HasValue && Mathf.Abs(verticalDiff) > 0.05f)
+        {
+            pitchAngle = verticalDiff < 0 ? 15f : -15f;
+            _lastPitchAngle = pitchAngle;
+        }
+
+        Quaternion targetRotation = Quaternion.Euler(pitchAngle, yaw, 0f);
+
+        if (forceSnapRotation)
+        {
+            transform.rotation = targetRotation;
+        }
+        else if (_moveTarget.HasValue)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
+        }
+        else
+        {
+            Quaternion flatRotation = Quaternion.Euler(0f, yaw, 0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, flatRotation, Time.deltaTime * _rotationSpeed);
+
+            if (!isRampArea && Quaternion.Angle(transform.rotation, flatRotation) < 0.1f) _lastPitchAngle = 0f;
+        }
+
+        _lastY = currentY;
     }
+
 
     public void MoveTo(Vector3 target)
     {
         _moveTarget = target;
-    }
-
-    private void CheckAndRotateOnFloorTransition()
-    {
-        float y = transform.position.y;
-
-        if (Mathf.Abs(y - 0.6f) < 0.01f)
-        {
-            RotateToFloorEntry(Vector3.forward);
-        }
-        else if (Mathf.Abs(y - 1.6f) < 0.01f)
-        {
-            RotateToFloorEntry(Vector3.back);
-        }
-    }
-
-    private void RotateToFloorEntry(Vector3 direction)
-    {
-        direction.y = 0f;
-        if (direction.sqrMagnitude < 0.001f) return;
-
-        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
     }
 }
