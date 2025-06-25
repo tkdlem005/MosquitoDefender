@@ -4,15 +4,60 @@ using UnityEngine;
 
 public class Horn : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float _freezeTime = 2f;
+    public float _radius = 1.5f;
+    public int _decibel = 0;
+    public float _decibelDecayTime = 6f;
+
+    private bool _isLocked = false;
+
+    public void Activate()
     {
-        
+        if (_isLocked) return;
+
+        StartCoroutine(HornRoutine());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator HornRoutine()
     {
-        
+        Collider[] hits = Physics.OverlapSphere(transform.position, _radius);
+
+        foreach (var hit in hits)
+        {
+            if (hit.TryGetComponent(out IFreezable freezeAble))
+                freezeAble.Freeze(_freezeTime);
+        }
+
+        _decibel += 3;
+        Debug.Log($"µ¥½Ãº§: {_decibel}");
+
+        if(_decibel == 3) StartCoroutine(DecayDecibel());
+
+        if (_decibel >= 9)
+        {
+            InputManager.Instance.CanMove = false;
+            _isLocked = true;
+
+            yield return new WaitForSeconds(3f);
+
+            InputManager.Instance.CanMove = true;
+            _decibel = 0;
+            _isLocked = false;
+        }
+    }
+
+    private IEnumerator DecayDecibel()
+    {
+        while (_decibel > 0)
+        {
+            yield return new WaitForSeconds(_decibelDecayTime);
+            _decibel = Mathf.Max(0, _decibel - 1);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _radius);
     }
 }

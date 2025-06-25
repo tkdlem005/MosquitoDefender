@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerCharacter _owner;
+    [SerializeField] private PlayerCharacter _owner;
+    [SerializeField] private Horn _horn;
 
     private Vector2Int _currentXZ;
     private Vector3 _targetWorldPos;

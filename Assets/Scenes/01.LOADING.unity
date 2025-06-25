@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d133d60793e947f4bba324dc607b0ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 1
+  _time: 0.6
 --- !u!4 &677120597
 Transform:
   m_ObjectHideFlags: 0
@@ -351,8 +351,8 @@ MonoBehaviour:
   - {fileID: 1513084713}
   _necessaryAndSufficientStartCondition: 1
   _customEvents:
-  - {fileID: 6875432}
   - {fileID: 677120596}
+  - {fileID: 6875432}
   _customEndConditions: []
   _necessaryAndSufficientEndCondition: 0
 --- !u!4 &853907006
@@ -370,8 +370,8 @@ Transform:
   m_Children:
   - {fileID: 1042424613}
   - {fileID: 1513084712}
-  - {fileID: 6875431}
   - {fileID: 677120597}
+  - {fileID: 6875431}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &877895122

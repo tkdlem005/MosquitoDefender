@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Childrens : Character
+public class Childrens : Character, IFreezable
 {
     private enum AIState
     {
@@ -19,6 +19,7 @@ public class Childrens : Character
 
     private float _lastY;
     private float _lastPitchAngle = 0f;
+    private bool _isFrozen = false;
 
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private float _chaseRange = 5f;
@@ -37,7 +38,7 @@ public class Childrens : Character
     {
         base.Update();
 
-        DetectPlayer();
+        if (_isFrozen) return;
 
         if (_targetPlayer != null)
         {
@@ -49,6 +50,10 @@ public class Childrens : Character
             }
 
             MoveAlongPath();
+        }
+        else
+        {
+            DetectPlayer();
         }
     }
 
@@ -118,10 +123,6 @@ public class Childrens : Character
 
         _lastY = currentY;
     }
-
-
-
-
     private void DetectPlayer()
     {
         if (_targetPlayer == null)
@@ -180,5 +181,23 @@ public class Childrens : Character
             Vector3 to = NavGridManager.Instance.GetWorldPosition(_currentPath[i + 1]);
             Gizmos.DrawLine(from, to);
         }
+    }
+
+    public void Freeze(float duration)
+    {
+        Debug.Log("Freeze!!");
+
+        if (!_isFrozen)
+            StartCoroutine(FreezeRoutine(duration));
+    }
+
+    private IEnumerator FreezeRoutine(float duration)
+    {
+        _isFrozen = true;
+        _targetPlayer = null;
+
+        yield return new WaitForSeconds(duration);
+
+        _isFrozen = false;
     }
 }

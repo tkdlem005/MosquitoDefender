@@ -8,6 +8,7 @@ public class PlayerCharacter : Character
 
     private PlayerController _controller;
     private Disinfection _disinfection;
+    private Horn _horn;
 
     [SerializeField] private float _moveSpeed = 8.0f;
     [SerializeField] private float _rotationSpeed = 10f;
@@ -18,9 +19,9 @@ public class PlayerCharacter : Character
     private float _lastY;
     private float _lastPitchAngle = 0f;
 
+    public Horn Horn => _horn;
     public float MoveSpeed => _moveSpeed;
     public float RotationSpeed => _rotationSpeed;
-
     public float MaxGasAmount => _maxGasAmount;
 
     protected override void Awake()
@@ -37,6 +38,7 @@ public class PlayerCharacter : Character
 
         TryGetComponent<PlayerController>(out _controller);
         TryGetComponent<Disinfection>(out _disinfection);
+        TryGetComponent<Horn>(out _horn);
 
         _disinfection.Execute();
     }

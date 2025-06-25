@@ -11,9 +11,11 @@ public class InputManager : ManagerBase
     [SerializeField] private MoveDirection _reservedDirection = MoveDirection.None;
     public MoveDirection ReservedDirection => _reservedDirection;
 
+    [SerializeField] private bool _canMove = false;
+
     private float _inputX = 0.0f;
     private float _inputZ = 0.0f;
-    private bool _canMove = false;
+    
 
     public bool CanMove { get { return _canMove; }  set { _canMove = value; } }
 
@@ -36,6 +38,14 @@ public class InputManager : ManagerBase
     {
         if (CanMove)
         {
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            { 
+                if(PlayerCharacter.Instance != null)
+                {
+                    PlayerCharacter.Instance.Horn.Activate();
+                }
+            }
+
             _inputX = Input.GetAxisRaw("Horizontal");
             _inputZ = Input.GetAxisRaw("Vertical");
 
