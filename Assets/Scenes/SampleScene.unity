@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104146cc5490a0a4cb2e6f71f8d1718d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridData: {fileID: 11400000, guid: a9b3c256103ab6942a02e5183211c043, type: 2}
+  _gridData: {fileID: 11400000, guid: 5138a05afc934234c93cfdac9e134d6d, type: 2}
   _bIsSeeLabel: 1
 --- !u!4 &164409442
 Transform:
@@ -273,7 +273,7 @@ Transform:
   m_GameObject: {fileID: 360295592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 1.1, z: -8}
+  m_LocalPosition: {x: -9, y: 1.1, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
