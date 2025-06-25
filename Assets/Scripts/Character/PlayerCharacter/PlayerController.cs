@@ -12,12 +12,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 _targetWorldPos;
     private bool _isMoving = false;
 
-    private void Start()
-    {
-        _owner = PlayerCharacter.Instance;
-        _currentXZ = NavGridManager.Instance.GetXZFromWorld(transform.position);
-        _targetWorldPos = transform.position;
-    }
+    private void Awake() => EventManager.Instance.AddListener(EventList.EMapSettingDone, SetupController);
+
+    private void Start() => _owner = PlayerCharacter.Instance;
 
     private void Update()
     {
@@ -49,6 +46,13 @@ public class PlayerController : MonoBehaviour
     {
         InputManager.Instance.ClearReservedDirection();
         _isMoving = false;
+    }
+
+    private void SetupController(object param)
+    {
+        _currentXZ = NavGridManager.Instance.GetXZFromWorld(transform.position);
+        _targetWorldPos = transform.position;
+        EventManager.Instance.TriggerEvent(EventList.EControllerSettingDone);
     }
 
     private Vector2Int DirectionToXZOffset(MoveDirection dir)

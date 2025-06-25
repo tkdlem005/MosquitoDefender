@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public class SoundManager : ManagerBase
 {
     public static SoundManager Instance { get; private set; }
 
-    [SerializeField] private List<SoundData> _soundDataList;
+    [SerializeField] private List<SoundData> _bgmSoundDataList;
+    [SerializeField] private List<SoundData> _sfxSoundDataList;
 
     [SerializeField] private AudioSource _bgmSource;
     [SerializeField] private AudioSource _sfxSource;
@@ -32,9 +34,27 @@ public class SoundManager : ManagerBase
 
     public void PlayBGM(int id)
     {
-        AudioClip clip = _soundDataList[id]._clip;
-        if (_bgmSource.clip == clip) return;
-        _bgmSource.clip = clip;
-        _bgmSource.Play();
+        if (id >= 0 && id < _bgmSoundDataList.Count)
+        {
+            AudioClip clip = _bgmSoundDataList[id]._clip;
+
+            if (_bgmSource.clip == clip) return; // 이미 재생 중인 BGM이면 재생하지 않음
+
+            _bgmSource.clip = clip;
+            _bgmSource.Play();
+        }
+    }
+
+    public void PlaySFX(int id)
+    {
+        if (id >= 0 && id < _sfxSoundDataList.Count)
+        {
+            AudioClip clip = _sfxSoundDataList[id]._clip;
+            _sfxSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning($"SFX index {id} out of range!");
+        }
     }
 }

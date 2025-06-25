@@ -36,13 +36,7 @@ public class SceneManager : ManagerBase
 
         switch (sceneState)
         {
-            case SceneState.CLEAR:
-                break;
-
-            case SceneState.FAIL:
-                break;
-
-            case SceneState.END:
+            case SceneState.CLEAR or SceneState.FAIL:
                 break;
 
             default:

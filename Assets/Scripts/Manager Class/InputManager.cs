@@ -13,6 +13,9 @@ public class InputManager : ManagerBase
 
     private float _inputX = 0.0f;
     private float _inputZ = 0.0f;
+    private bool _canMove = false;
+
+    public bool CanMove { get { return _canMove; }  set { _canMove = value; } }
 
     private void Awake() => Initialize();
 
@@ -31,11 +34,14 @@ public class InputManager : ManagerBase
 
     private void Update()
     {
-        _inputX = Input.GetAxisRaw("Horizontal");
-        _inputZ = Input.GetAxisRaw("Vertical");
+        if (CanMove)
+        {
+            _inputX = Input.GetAxisRaw("Horizontal");
+            _inputZ = Input.GetAxisRaw("Vertical");
 
-        if (_reservedDirection == MoveDirection.None)
-            SetDirection();
+            if (_reservedDirection == MoveDirection.None)
+                SetDirection();
+        }
     }
 
     private void SetDirection()

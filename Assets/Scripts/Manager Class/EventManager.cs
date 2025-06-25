@@ -14,7 +14,10 @@ public enum EventList
     EGameLose,
     ESceneChangeStart,
     ESceneChangeEnd,
-    ELoadingStart
+    ELoadingStart,
+    ESettingMap,
+    EMapSettingDone,
+    EControllerSettingDone
 }
 
 public class EventManager

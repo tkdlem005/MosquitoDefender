@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour
 {
-    public static MainCamera Instance { get; private set; }
-
     public Camera _mainCamera;
 
     [field: SerializeField] public Transform TargetTransform { get; private set; }
@@ -31,9 +29,6 @@ public class MainCamera : MonoBehaviour
 
     private void Initialize()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-
         if (TryGetComponent(out _mainCamera))
             _mainCamera = Camera.main;
 
@@ -68,4 +63,6 @@ public class MainCamera : MonoBehaviour
             transform.position = cameraPosition + PositionOffset;
         }
     }
+
+    public void SetTarget(Transform targetTransform) => TargetTransform = targetTransform;
 }

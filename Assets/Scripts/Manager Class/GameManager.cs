@@ -5,12 +5,13 @@ using UnityEngine;
 
 public enum GameState
 {
-    NotPlay,
+    None,
     Stage1,
     Stage2,
     Stage3,
     Clear,
-    Fail
+    Fail,
+    Ending
 }
 
 public class GameManager : ManagerBase
@@ -20,7 +21,7 @@ public class GameManager : ManagerBase
     private Coroutine _timerCoroutine;
 
     [SerializeField, Space(20f)]
-    private GameState _gameState = GameState.NotPlay;
+    private GameState _gameState = GameState.None;
 
     private float _currentTime;
     private bool _isClear;
@@ -35,19 +36,44 @@ public class GameManager : ManagerBase
         if (!Instance) Instance = this;
         else Destroy(gameObject);
 
+        EventManager.Instance.AddListener(EventList.ELoadingStart, LoadNextGame);
         EventManager.Instance.AddListener(EventList.EGameStart, StartGameTimer);
 
         InitializeEnd();
     }
 
-    public void SetGameState(GameState gameState)
+    public void LoadNextGame(object param)
     {
-        _gameState = gameState;
+        Debug.Log("LoadNextGame");
 
         switch (_gameState)
         {
-            case GameState.Stage1 or GameState.Stage2 or GameState.Stage3:
-                EventManager.Instance.TriggerEvent(EventList.ELoadingStart);
+            case GameState.None:
+                _gameState = GameState.Stage1;
+                EventManager.Instance.TriggerEvent(
+                    EventList.ESettingMap,
+                    DataManager.Instance.GetStageData(1)
+                );
+                break;
+
+            case GameState.Stage1:
+                _gameState = GameState.Stage2;
+                EventManager.Instance.TriggerEvent(
+                    EventList.ESettingMap,
+                    DataManager.Instance.GetStageData(2)
+                );
+                break;
+
+            case GameState.Stage2:
+                _gameState = GameState.Stage3;
+                EventManager.Instance.TriggerEvent(
+                    EventList.ESettingMap,
+                    DataManager.Instance.GetStageData(3)
+                );
+                break;
+
+            case GameState.Stage3:
+                _gameState = GameState.Ending;
                 break;
         }
     }

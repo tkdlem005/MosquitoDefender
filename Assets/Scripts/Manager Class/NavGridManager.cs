@@ -22,17 +22,15 @@ public class NavGridManager : ManagerBase
         if (!Instance) Instance = this;
         else Destroy(gameObject);
 
-        EventManager.Instance.AddListener(EventList.ELoadingStart, InitializeGrid);
+        EventManager.Instance.AddListener(EventList.ESettingMap, InitializeGrid);
 
-        InitializeGrid(); // юс╫ц
         InitializeEnd();
     }
     private void InitializeGrid(object param = null)
     {
-        if (_gridData == null)
+        if (param is StageData stageData)
         {
-            Debug.LogError("[NavGridManager] GridData (ScriptableObject) is not assigned!");
-            return;
+            _gridData = stageData._mapData;
         }
 
         _grid.Clear();
