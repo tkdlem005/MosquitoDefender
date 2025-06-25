@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab026327d05869419d0bdb3a94bcced, type: 3}
+  m_Name: Stage2Data
+  m_EditorClassIdentifier: 
+  _stageTime: 60
+  _mapData: {fileID: 11400000, guid: a9b3c256103ab6942a02e5183211c043, type: 2}
+  _cameraSettings:
+  - _minX: -5
+    _maxX: 4
+    _minZ: -6
+    _maxZ: 4
