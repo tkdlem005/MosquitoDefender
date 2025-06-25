@@ -7,7 +7,11 @@ public enum EventList
 {
     None,
     EManagerAwake,
-    EUpdateGasGauge
+    EUpdateGasGauge,
+    EGameStart,
+    EUpdateTimer,
+    EGameWin,
+    EGameLose
 }
 
 public class EventManager

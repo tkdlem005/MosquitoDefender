@@ -38,7 +38,7 @@ public class EventRunner : MonoBehaviour
 
     public void Start()
     {
-        if(_customStartConditions != null && _customStartConditions.Count > 0)
+        if (_customStartConditions != null && _customStartConditions.Count > 0)
         {
             CoroutineDelegator.Instance.ExecuteCoroutine(
                 _RunnerID + "CheckCondition",
@@ -48,6 +48,7 @@ public class EventRunner : MonoBehaviour
                     () => CoroutineDelegator.Instance.ExecuteCoroutine(_RunnerID + "Run", Run()))
                 );
         }
+        else CoroutineDelegator.Instance.ExecuteCoroutine(_RunnerID + "Run", Run());
     }
 
     private IEnumerator CheckCondition(List<CustomCondition> conditions, bool requireAll, Action onComplete = null)
