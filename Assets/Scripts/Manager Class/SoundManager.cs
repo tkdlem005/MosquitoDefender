@@ -30,18 +30,11 @@ public class SoundManager : ManagerBase
         InitializeEnd();
     }
 
-    public void PlayBGM(string id)
+    public void PlayBGM(int id)
     {
-        for (int i = 0; i < _soundDataList.Count; i++)
-        {
-            if (_soundDataList[i]._name == id)
-            {
-                AudioClip clip = _soundDataList[i]._clip;
-                if (_bgmSource.clip == clip) return; // 이미 재생 중인 BGM이면 재생하지 않음
-                _bgmSource.clip = clip;
-                _bgmSource.Play();
-                break;
-            }
-        }
+        AudioClip clip = _soundDataList[id]._clip;
+        if (_bgmSource.clip == clip) return;
+        _bgmSource.clip = clip;
+        _bgmSource.Play();
     }
 }

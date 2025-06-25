@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CustomEvent_PlayBGM : CustomEvent
 {
-    public string _soundID = "";
+    public int _soundID = -1;
 
     public override void ExecuteEvent(Action action)
     {

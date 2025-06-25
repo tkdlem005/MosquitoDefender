@@ -40,6 +40,11 @@ public class GameManager : ManagerBase
         InitializeEnd();
     }
 
+    public void SetGameState(GameState gameState)
+    {
+        _gameState = gameState;
+    }
+
     private void StartGameTimer(object param)
     {
         if(param is float limitTime)
