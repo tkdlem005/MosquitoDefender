@@ -6,7 +6,8 @@ using UnityEngine;
 public enum EventList
 {
     None,
-    EManagerAwake
+    EManagerAwake,
+    EUpdateGasGauge
 }
 
 public class EventManager

@@ -7,14 +7,19 @@ public class PlayerCharacter : Character
     public static PlayerCharacter Instance;
 
     private PlayerController _controller;
+    private Disinfection _disinfection;
 
     [SerializeField] private float _moveSpeed = 8.0f;
     [SerializeField] private float _rotationSpeed = 10f;
+
+    [SerializeField] private float _maxGasAmount = 50f;
 
     private Vector3? _moveTarget = null;
 
     public float MoveSpeed => _moveSpeed;
     public float RotationSpeed => _rotationSpeed;
+
+    public float MaxGasAmount => _maxGasAmount;
 
     protected override void Awake()
     {
@@ -29,6 +34,9 @@ public class PlayerCharacter : Character
         base.Start();
 
         TryGetComponent<PlayerController>(out _controller);
+        TryGetComponent<Disinfection>(out _disinfection);
+
+        _disinfection.Execute();
     }
 
     protected override void Update()
@@ -38,7 +46,6 @@ public class PlayerCharacter : Character
         if (_moveTarget.HasValue)
         {
             Vector3 target = _moveTarget.Value;
-            Debug.Log(target);
             transform.position = Vector3.MoveTowards(transform.position, target, _moveSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, target) < 0.01f)

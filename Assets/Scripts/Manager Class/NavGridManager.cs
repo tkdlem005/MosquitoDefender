@@ -134,7 +134,10 @@ public class NavGridManager : ManagerBase
         return new Vector2Int(x, z);
     }
 
-    public bool TryGetCell(Vector2Int xz, out GridCell cell) => _grid.TryGetValue(xz, out cell);
+    public bool TryGetCell(Vector2Int pos, out GridCell cell)
+    {
+        return _grid.TryGetValue(pos, out cell);
+    }
 
     public Dictionary<Vector2Int, bool> GetCleanStatusDictionary() => _cleanStatus;
 
@@ -148,13 +151,19 @@ public class NavGridManager : ManagerBase
 
         foreach (var cell in _grid.Values)
         {
-            Gizmos.color = cell._bIsWalkable ? Color.green : Color.red;
-            Vector3 pos = new(cell._gridPosXZ.x * _gridData.CellSize, cell._hegihtY * _gridData.CellSize, cell._gridPosXZ.y * _gridData.CellSize);
-            Gizmos.DrawWireCube(pos, Vector3.one * _gridData.CellSize * 0.9f);
+            if (cell._bIsClean)
+                Gizmos.color = Color.yellow;
+            else
+                Gizmos.color = cell._bIsWalkable ? Color.green : Color.red;
 
-#if UNITY_EDITOR
-            Handles.Label(pos + Vector3.up * 0.1f, $"{cell._gridPosXZ.x},{cell._hegihtY},{cell._gridPosXZ.y}");
-#endif
+            Vector3 pos = new(
+                cell._gridPosXZ.x * _gridData.CellSize,
+                cell._hegihtY * _gridData.CellSize,
+                cell._gridPosXZ.y * _gridData.CellSize
+            );
+
+            Gizmos.DrawWireCube(pos, Vector3.one * _gridData.CellSize * 0.9f);
         }
     }
+
 }

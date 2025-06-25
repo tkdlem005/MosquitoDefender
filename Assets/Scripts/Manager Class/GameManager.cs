@@ -6,6 +6,9 @@ public class GameManager : ManagerBase
 {
     public static GameManager Instance { get; private set; }
 
+    [SerializeField] private float _limitTime = 0.0f;
+    private float _currentTime;
+
     private void Awake() => Initialize();
 
     protected override void Initialize()
@@ -16,4 +19,9 @@ public class GameManager : ManagerBase
         InitializeEnd();
     }
 
+    private IEnumerator SetTimer()
+    {
+
+        yield return null;
+    }
 }
