@@ -47,8 +47,7 @@ public class GridVisualDeberger : MonoBehaviour
         if (_gridData == null)
             return;
 
-        if (_visualGrid == null || _visualGrid.Count == 0)
-            GenerateVisualGrid();
+        GenerateVisualGrid();
 
         foreach (var kvp in _visualGrid)
         {
@@ -69,8 +68,7 @@ public class GridVisualDeberger : MonoBehaviour
             Vector3 worldPos = new Vector3(pos.x * _gridData.CellSize, y * _gridData.CellSize, pos.y * _gridData.CellSize);
             Gizmos.DrawWireCube(worldPos, Vector3.one * _gridData.CellSize * 0.9f);
 
-            if(_bIsSeeLabel)
-                Handles.Label(worldPos + Vector3.up * 0.1f, $"{pos.x},{y},{pos.y}");
+            Handles.Label(worldPos + Vector3.up * 0.1f, $"{pos.x},{y},{pos.y}");
         }
     }
 #endif
