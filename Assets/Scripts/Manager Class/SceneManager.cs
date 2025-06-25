@@ -36,16 +36,8 @@ public class SceneManager : ManagerBase
 
         AsyncOperation asyncload = null;
 
-        switch (sceneState)
-        {
-            case SceneState.CLEAR or SceneState.FAIL:
-                break;
-
-            default:
-                asyncload = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)sceneState, LoadSceneMode.Single);
-                _curSceneState = sceneState;
-                break;
-        }
+        asyncload = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)sceneState, LoadSceneMode.Single);
+        _curSceneState = sceneState;
 
         StartCoroutine(LoadScene(asyncload));
     }

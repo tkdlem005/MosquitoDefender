@@ -1,15 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CustomEvent_SpawnChildren : CustomEvent
 {
-    private GameObject _childrenPrefab = Resources.Load<GameObject>("Prefabs/Children");
-    private Sprite[] _childrenSprites = Resources.LoadAll<Sprite>("Sprites/ChildrenSheet");
-    public override void ExecuteEvent(Action action)
+    public float _delayTime = 0.3f;
+    public string _spawnerID = "";
+
+    private string _hiddenID = "CustomEvent_SpawnChildren";
+    private GameObject _childrenPrefab;
+    private Sprite[] _childrenSprites;
+
+    public override void ExecuteEvent(Action action) 
+        => CoroutineDelegator.Instance.ExecuteCoroutine(_hiddenID + _spawnerID, EventWaiter(action));
+
+    private IEnumerator EventWaiter(Action action)
     {
-        GameObject children = Instantiate(_childrenPrefab);
+        yield return new WaitForSeconds(_delayTime);
+
+        GameObject children = Instantiate(Resources.Load<GameObject>("Prefabs/Children"));
+        _childrenSprites = Resources.LoadAll<Sprite>("Sprites/ChildrenSheet");
+
         children.transform.GetChild(0).TryGetComponent(out SpriteRenderer spriteRenderer);
 
         if (spriteRenderer != null && _childrenSprites.Length > 0)
@@ -22,5 +35,7 @@ public class CustomEvent_SpawnChildren : CustomEvent
 
         SoundManager.Instance.PlaySFX(4);
         children.SetActive(true);
+
+        action?.Invoke();
     }
 }
