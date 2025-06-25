@@ -6,7 +6,7 @@ public class ManagerInitializer : MonoBehaviour
 {
     private enum ManagerList
     {
-        CoroutineDelegator, GameManager, SceneManager, InputManager, NavGridManager, MaxCount
+        DataManager, CoroutineDelegator, GameManager, SceneManager, InputManager, NavGridManager, SoundManager, MaxCount
     }
 
     public List<ManagerBase> _managerClasses;
