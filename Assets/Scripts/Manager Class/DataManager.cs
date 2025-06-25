@@ -10,7 +10,6 @@ public class DataManager : ManagerBase
 
     private void Awake() => Initialize();
 
-
     protected override void Initialize()
     {
         if (!Instance) Instance = this;

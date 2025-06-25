@@ -17,6 +17,8 @@ public class NavGridManager : ManagerBase
 
     private void Awake() => Initialize();
 
+    private void OnDestroy() => EventManager.Instance.RemoveListener(EventList.ESettingMap, InitializeGrid);
+
     protected override void Initialize()
     {
         if (!Instance) Instance = this;
