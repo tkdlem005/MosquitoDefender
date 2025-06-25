@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab026327d05869419d0bdb3a94bcced, type: 3}
   m_Name: Stage1Data
   m_EditorClassIdentifier: 
-  _stageTime: 20
+  _stageTime: 45
   _mapData: {fileID: 11400000, guid: a9b3c256103ab6942a02e5183211c043, type: 2}
   _cameraSettings:
-  - _minX: 0
-    _maxX: 0
-    _minZ: 0
-    _maxZ: 0
+  - _minX: -5
+    _maxX: 4
+    _minZ: -6
+    _maxZ: 4
