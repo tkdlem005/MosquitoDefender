@@ -14,6 +14,7 @@ public class SoundManager : ManagerBase
 
     [SerializeField] private AudioSource _bgmSource;
     [SerializeField] private AudioSource _sfxSource;
+    [SerializeField] private AudioSource _disInfectionSource;
 
     private void Awake() => Initialize();
 
@@ -28,6 +29,9 @@ public class SoundManager : ManagerBase
 
         _sfxSource = gameObject.AddComponent<AudioSource>();
         _sfxSource.loop = false;
+
+        _disInfectionSource = gameObject.AddComponent<AudioSource>();
+        _disInfectionSource.loop = false;
 
         InitializeEnd();
     }
@@ -47,7 +51,16 @@ public class SoundManager : ManagerBase
 
     public void PlaySFX(int id)
     {
-        if (id >= 0 && id < _sfxSoundDataList.Count)
+        if(id == 1)
+        {
+            AudioClip clip = _sfxSoundDataList[id]._clip;
+
+            if (_disInfectionSource.isPlaying) return;
+
+            _disInfectionSource.clip = clip;
+            _disInfectionSource.Play();
+        }
+        else if (id >= 0 && id < _sfxSoundDataList.Count)
         {
             AudioClip clip = _sfxSoundDataList[id]._clip;
             _sfxSource.PlayOneShot(clip);

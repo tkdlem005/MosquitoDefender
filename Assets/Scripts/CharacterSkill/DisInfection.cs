@@ -32,8 +32,13 @@ public class Disinfection : MonoBehaviour
 
     private void Update()
     {
-        if (!_startAction || _curGasAmount <= 0f) return;
+        if (!_startAction) return;
+        if (_curGasAmount <= 0f)
+        {
+            SoundManager.Instance.PlaySFX(2);
+        }
 
+        SoundManager.Instance.PlaySFX(1);
         Vector3 worldPos = transform.position;
         Vector2Int gridPos = new Vector2Int(Mathf.RoundToInt(worldPos.x), Mathf.RoundToInt(worldPos.z));
 

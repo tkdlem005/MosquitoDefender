@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -95,18 +95,238 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: HornGauge_UI 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 233.33334
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5480d43d09c95a8419a01bec13ae80a2
+      internalID: -31612691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_1
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 233.33334
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a434627063a9f842b4a08906612cb8a
+      internalID: -51067647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_2
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 233.33334
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9febbeff08b43c34b8c969e2d23a3813
+      internalID: 458446159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_3
+      rect:
+        serializedVersion: 2
+        x: 1284
+        y: 233.33334
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aedb147ed4210f4da7415abfe65bd9e
+      internalID: 763271820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 117.333336
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7dd96379eb72384d9b5ad7eb2594ec6
+      internalID: 1392287528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_5
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 117.333336
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 460d4c1202fcd0344a1d4db73991c59e
+      internalID: 1576085651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_6
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 117.333336
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79ccf453cce096441acf266db5b649e3
+      internalID: -1516743799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_7
+      rect:
+        serializedVersion: 2
+        x: 1284
+        y: 117.333336
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 319c009b604a2b148b2117fc96ca6c24
+      internalID: 1633201448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1.3333359
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eae7fd61723cb08409efbbb3334dab82
+      internalID: 1481339130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HornGauge_UI 1_9
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 1.3333359
+        width: 428.25
+        height: 116.666664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0732772c5facad46b2b609be07ed675
+      internalID: 440447562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 259a8c45781a51d4cbba7c375447dc7a
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      HornGauge_UI 1_0: -31612691
+      HornGauge_UI 1_1: -51067647
+      HornGauge_UI 1_2: 458446159
+      HornGauge_UI 1_3: 763271820
+      HornGauge_UI 1_4: 1392287528
+      HornGauge_UI 1_5: 1576085651
+      HornGauge_UI 1_6: -1516743799
+      HornGauge_UI 1_7: 1633201448
+      HornGauge_UI 1_8: 1481339130
+      HornGauge_UI 1_9: 440447562
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

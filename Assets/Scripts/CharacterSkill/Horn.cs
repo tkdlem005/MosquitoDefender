@@ -15,6 +15,7 @@ public class Horn : MonoBehaviour
     {
         if (_isLocked) return;
 
+        SoundManager.Instance.PlaySFX(3);
         StartCoroutine(HornRoutine());
     }
 

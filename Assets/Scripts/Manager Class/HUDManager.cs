@@ -24,6 +24,8 @@ public class HUDManager : MonoBehaviour
     private void Start()
     {
         _gasGauge.value = 1;
+        if (_hornUI != null) _hornUI.SetActive(true);
+        ResetHornUI();
     }
 
     private void Initialize()
@@ -59,7 +61,7 @@ public class HUDManager : MonoBehaviour
         {
             ResetHornUI();
 
-            int volumeToActivate = Mathf.Min(decibel / 3, 3);
+            int volumeToActivate = decibel;
             for (int i = 0; i < volumeToActivate; i++)
             {
                 _hornVolumeImages[i].enabled = true;

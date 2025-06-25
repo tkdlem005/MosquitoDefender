@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCharacter : Character
@@ -30,6 +32,8 @@ public class PlayerCharacter : Character
 
         if (!Instance) Instance = this;
         else Destroy(this.gameObject);
+
+        EventManager.Instance.AddListener(EventList.EGameStart, PlayerStart);
     }
 
     protected override void Start()
@@ -39,8 +43,6 @@ public class PlayerCharacter : Character
         TryGetComponent<PlayerController>(out _controller);
         TryGetComponent<Disinfection>(out _disinfection);
         TryGetComponent<Horn>(out _horn);
-
-        _disinfection.Execute();
     }
 
     protected override void Update()
@@ -132,7 +134,10 @@ public class PlayerCharacter : Character
         _lastY = currentY;
     }
 
-
+    private void PlayerStart(object param)
+    {
+        _disinfection.Execute();
+    }
     public void MoveTo(Vector3 target)
     {
         _moveTarget = target;
