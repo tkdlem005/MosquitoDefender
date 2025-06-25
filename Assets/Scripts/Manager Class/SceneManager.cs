@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum SceneState
 {
-    TITLE, 
+    TITLE, LOADING, PLAY, CLEAR, FAIL, END
 }
 
 public class SceneManager : ManagerBase
@@ -13,10 +13,7 @@ public class SceneManager : ManagerBase
 
     [SerializeField] private SceneState _curSceneState;
 
-    private void Awake()
-    {
-        Initialize();
-    }
+    private void Awake() => Initialize();
 
     protected override void Initialize()
     {

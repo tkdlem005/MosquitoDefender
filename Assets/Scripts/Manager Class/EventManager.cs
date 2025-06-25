@@ -11,7 +11,8 @@ public enum EventList
     EGameStart,
     EUpdateTimer,
     EGameWin,
-    EGameLose
+    EGameLose,
+    ESceneChangeStart
 }
 
 public class EventManager

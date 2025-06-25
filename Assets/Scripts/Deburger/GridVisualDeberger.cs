@@ -68,7 +68,8 @@ public class GridVisualDeberger : MonoBehaviour
             Vector3 worldPos = new Vector3(pos.x * _gridData.CellSize, y * _gridData.CellSize, pos.y * _gridData.CellSize);
             Gizmos.DrawWireCube(worldPos, Vector3.one * _gridData.CellSize * 0.9f);
 
-            Handles.Label(worldPos + Vector3.up * 0.1f, $"{pos.x},{y},{pos.y}");
+            if (_bIsSeeLabel)
+                Handles.Label(worldPos + Vector3.up * 0.1f, $"{pos.x},{y},{pos.y}");
         }
     }
 #endif

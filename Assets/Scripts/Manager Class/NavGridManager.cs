@@ -13,6 +13,8 @@ public class NavGridManager : ManagerBase
     private Dictionary<Vector2Int, GridCell> _grid = new();
     private Dictionary<Vector2Int, bool> _cleanStatus = new();
 
+    [SerializeField] private bool _useDebuger = true;
+
     private void Awake() => Initialize();
 
     protected override void Initialize()
@@ -62,7 +64,6 @@ public class NavGridManager : ManagerBase
             }
         }
     }
-
     private void SetCustomNonWalkables()
     {
         if (_gridData.CustomNonWalkables == null)
@@ -147,22 +148,25 @@ public class NavGridManager : ManagerBase
 
     private void OnDrawGizmos()
     {
-        if (_grid == null || _grid.Count == 0) return;
-
-        foreach (var cell in _grid.Values)
+        if (_useDebuger)
         {
-            if (cell._bIsClean)
-                Gizmos.color = Color.yellow;
-            else
-                Gizmos.color = cell._bIsWalkable ? Color.green : Color.red;
+            if (_grid == null || _grid.Count == 0) return;
 
-            Vector3 pos = new(
-                cell._gridPosXZ.x * _gridData.CellSize,
-                cell._hegihtY * _gridData.CellSize,
-                cell._gridPosXZ.y * _gridData.CellSize
-            );
+            foreach (var cell in _grid.Values)
+            {
+                if (cell._bIsClean)
+                    Gizmos.color = Color.yellow;
+                else
+                    Gizmos.color = cell._bIsWalkable ? Color.green : Color.red;
 
-            Gizmos.DrawWireCube(pos, Vector3.one * _gridData.CellSize * 0.9f);
+                Vector3 pos = new(
+                    cell._gridPosXZ.x * _gridData.CellSize,
+                    cell._hegihtY * _gridData.CellSize,
+                    cell._gridPosXZ.y * _gridData.CellSize
+                );
+
+                Gizmos.DrawWireCube(pos, Vector3.one * _gridData.CellSize * 0.9f);
+            }
         }
     }
 
