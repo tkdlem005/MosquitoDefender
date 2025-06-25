@@ -1046,6 +1046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817949b2da0edc49aa968bd111bec8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayTime: 3
+  _spawnerID: 1234
 --- !u!1 &1652823260111821566
 GameObject:
   m_ObjectHideFlags: 0
@@ -5031,6 +5033,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817949b2da0edc49aa968bd111bec8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayTime: 3
+  _spawnerID: 1255
 --- !u!1 &5769456369405312767
 GameObject:
   m_ObjectHideFlags: 0
@@ -8060,6 +8064,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817949b2da0edc49aa968bd111bec8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayTime: 2
+  _spawnerID: 1235
 --- !u!1 &8788768465224401030
 GameObject:
   m_ObjectHideFlags: 0
