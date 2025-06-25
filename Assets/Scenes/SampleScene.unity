@@ -430,6 +430,7 @@ MonoBehaviour:
   _moveSpeed: 6
   _rotationSpeed: 320
   _maxGasAmount: 50
+  _hornRadius: 1.5
 --- !u!54 &360295595
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1530,6 +1531,7 @@ MonoBehaviour:
   _gasGauge: {fileID: 29517707}
   _hornUI: {fileID: 0}
   _hornVolumeImages: []
+  _hudMoveImage: {fileID: 0}
 --- !u!114 &1241662122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2770,6 +2772,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1015426789727449719, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4fc15897d670a634c92d784cdbbf3084, type: 2}
+    - target: {fileID: 2187809979178764568, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187809979178764568, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187809979178764568, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187809979178764568, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187809979178764568, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187809979178764568, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187809979178764568, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 4396892492445081229, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
       propertyPath: m_Name
       value: Map
