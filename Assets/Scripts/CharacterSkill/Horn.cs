@@ -5,7 +5,6 @@ using UnityEngine;
 public class Horn : MonoBehaviour
 {
     public float _freezeTime = 2f;
-    public float _radius = 1.5f;
     public int _decibel = 0;
     public float _decibelDecayTime = 6f;
 
@@ -21,7 +20,7 @@ public class Horn : MonoBehaviour
 
     private IEnumerator HornRoutine()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, _radius);
+        Collider[] hits = Physics.OverlapSphere(transform.position, PlayerCharacter.Instance.HornRadius);
 
         foreach (var hit in hits)
         {
@@ -62,6 +61,6 @@ public class Horn : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _radius);
+        Gizmos.DrawWireSphere(transform.position, PlayerCharacter.Instance.HornRadius);
     }
 }

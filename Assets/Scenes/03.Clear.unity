@@ -313,6 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneState: 0
+  _notUseSceneManager: 1
 --- !u!1 &589449547
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneState: 5
+  _notUseSceneManager: 0
 --- !u!1 &989727090
 GameObject:
   m_ObjectHideFlags: 0

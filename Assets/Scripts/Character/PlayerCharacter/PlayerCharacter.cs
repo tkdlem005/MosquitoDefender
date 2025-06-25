@@ -14,8 +14,8 @@ public class PlayerCharacter : Character
 
     [SerializeField] private float _moveSpeed = 8.0f;
     [SerializeField] private float _rotationSpeed = 10f;
-
     [SerializeField] private float _maxGasAmount = 50f;
+    [SerializeField] private float _hornRadius = 1.5f;
 
     private Vector3? _moveTarget = null;
     private float _lastY;
@@ -23,6 +23,8 @@ public class PlayerCharacter : Character
     private bool _isFreeze;
 
     public Horn Horn => _horn;
+
+    public float HornRadius => _hornRadius;
     public float MoveSpeed => _moveSpeed;
     public float RotationSpeed => _rotationSpeed;
     public float MaxGasAmount => _maxGasAmount;
@@ -147,6 +149,24 @@ public class PlayerCharacter : Character
     public void MoveTo(Vector3 target)
     {
         _moveTarget = target;
+    }
+
+    public void IncreaseStatus(AbilityType abilityType)
+    {
+        switch (abilityType)
+        {
+            case AbilityType.Speed:
+                _moveSpeed += 2;
+                break;
+
+            case AbilityType.Gas:
+                _maxGasAmount += 15;
+                break;
+
+            case AbilityType.Horn:
+                _hornRadius += 1.5f;
+                break;
+        }
     }
 
     IEnumerator FreezePlayer(float time)
