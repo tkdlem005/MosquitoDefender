@@ -42,7 +42,7 @@ public class SoundManager : ManagerBase
         {
             AudioClip clip = _bgmSoundDataList[id]._clip;
 
-            if (_bgmSource.clip == clip) return; // 이미 재생 중인 BGM이면 재생하지 않음
+            if (_bgmSource.clip == clip) return;
 
             _bgmSource.clip = clip;
             _bgmSource.Play();
@@ -51,7 +51,7 @@ public class SoundManager : ManagerBase
 
     public void PlaySFX(int id)
     {
-        if(id == 1)
+        if(id == 1 || id == 2)
         {
             AudioClip clip = _sfxSoundDataList[id]._clip;
 

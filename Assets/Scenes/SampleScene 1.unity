@@ -208,6 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterRigidBody: {fileID: 0}
   _characterCollider: {fileID: 0}
+  _rotationSpeed: 10
   _chaseRange: 5
   _moveSpeed: 3
   _pathUpdateInterval: 0.5
@@ -454,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104146cc5490a0a4cb2e6f71f8d1718d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridData: {fileID: 0}
+  _gridData: {fileID: 11400000, guid: a9b3c256103ab6942a02e5183211c043, type: 2}
   _bIsSeeLabel: 1
 --- !u!4 &164409442
 Transform:
@@ -653,6 +654,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68079a80a50ea3b438402c1f5f4d91f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _owner: {fileID: 0}
+  _horn: {fileID: 0}
 --- !u!114 &360295594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,6 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d56f36b31a9ed4591e2f8936f296c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _disinfectEffectPrefab: {fileID: 0}
   _curGasAmount: 0
   _gasConsumptionRate: 1
   _startAction: 0
@@ -794,6 +798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridData: {fileID: 11400000, guid: a9b3c256103ab6942a02e5183211c043, type: 2}
+  _useDebuger: 1
 --- !u!1 &423598826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,6 +1036,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timerText: {fileID: 1988317884}
   _gasGauge: {fileID: 1721657805}
+  _hornUI: {fileID: 0}
+  _hornVolumeImages: []
 --- !u!1 &598432968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,6 +2276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _reservedDirection: 0
+  _canMove: 0
 --- !u!1 &1573362766
 GameObject:
   m_ObjectHideFlags: 0
