@@ -71,10 +71,35 @@ public class PlayerCharacter : Character
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
             }
         }
+
+        CheckAndRotateOnFloorTransition();
     }
 
     public void MoveTo(Vector3 target)
     {
         _moveTarget = target;
+    }
+
+    private void CheckAndRotateOnFloorTransition()
+    {
+        float y = transform.position.y;
+
+        if (Mathf.Abs(y - 0.6f) < 0.01f)
+        {
+            RotateToFloorEntry(Vector3.forward);
+        }
+        else if (Mathf.Abs(y - 1.6f) < 0.01f)
+        {
+            RotateToFloorEntry(Vector3.back);
+        }
+    }
+
+    private void RotateToFloorEntry(Vector3 direction)
+    {
+        direction.y = 0f;
+        if (direction.sqrMagnitude < 0.001f) return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
     }
 }
