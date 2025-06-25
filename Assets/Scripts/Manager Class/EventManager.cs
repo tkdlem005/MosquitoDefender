@@ -17,7 +17,8 @@ public enum EventList
     ELoadingStart,
     ESettingMap,
     EMapSettingDone,
-    EControllerSettingDone
+    EControllerSettingDone,
+    EUpdateHornDecibel
 }
 
 public class EventManager

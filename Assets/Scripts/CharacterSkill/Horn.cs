@@ -29,9 +29,10 @@ public class Horn : MonoBehaviour
         }
 
         _decibel += 3;
-        Debug.Log($"µ¥½Ãº§: {_decibel}");
 
-        if(_decibel == 3) StartCoroutine(DecayDecibel());
+        EventManager.Instance.TriggerEvent(EventList.EUpdateHornDecibel, _decibel);
+
+        if (_decibel == 3) StartCoroutine(DecayDecibel());
 
         if (_decibel >= 9)
         {
@@ -52,6 +53,8 @@ public class Horn : MonoBehaviour
         {
             yield return new WaitForSeconds(_decibelDecayTime);
             _decibel = Mathf.Max(0, _decibel - 1);
+
+            EventManager.Instance.TriggerEvent(EventList.EUpdateHornDecibel, _decibel);
         }
     }
 
