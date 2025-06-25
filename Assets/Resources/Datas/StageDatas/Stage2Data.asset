@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf895f47f86b6c45802641813430be6, type: 3}
-  m_Name: PlayBGM
+  m_Script: {fileID: 11500000, guid: 1ab026327d05869419d0bdb3a94bcced, type: 3}
+  m_Name: Stage2Data
   m_EditorClassIdentifier: 
-  _name: Main
-  _clip: {fileID: 8300000, guid: 55b8e6c7b4ba33842ac7eb7a402914ed, type: 3}
+  _stageTime: 100
+  _mapData: {fileID: 11400000, guid: a9b3c256103ab6942a02e5183211c043, type: 2}
+  _cameraSettings:
+  - _minX: -6
+    _maxX: 7
+    _minZ: -7
+    _maxZ: 7
