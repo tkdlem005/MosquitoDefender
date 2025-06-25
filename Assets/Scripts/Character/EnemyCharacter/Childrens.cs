@@ -226,6 +226,8 @@ public class Childrens : Character, IFreezable
 
             PlayerCharacter.Instance.Freeze(_playerStunTime);
             _isFrozen = true;
+
+            HUDManager.Instance.OnPlayerCollision();
         }
     }
 }

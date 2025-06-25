@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
@@ -19,6 +18,12 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private GameObject _hornUI;
     [SerializeField] private List<Image> _hornVolumeImages;
 
+    [Header("HUD Move UI")]
+    [SerializeField] private RectTransform _hudMoveImage;
+    private Vector2 _startPos = new Vector2(-600f, 0f);
+    private Vector2 _endPos = new Vector2(50f, 0f);
+    private float _moveDuration = 0.2f;
+
     private void Awake() => Initialize();
 
     private void Start()
@@ -26,6 +31,9 @@ public class HUDManager : MonoBehaviour
         _gasGauge.value = 1;
         if (_hornUI != null) _hornUI.SetActive(true);
         ResetHornUI();
+
+        if (_hudMoveImage != null)
+            _hudMoveImage.anchoredPosition = _startPos;
     }
 
     private void Initialize()
@@ -42,7 +50,7 @@ public class HUDManager : MonoBehaviour
     {
         if (_gasGauge == null) return;
 
-        if(param is float ratio) _gasGauge.value = ratio;
+        if (param is float ratio) _gasGauge.value = ratio;
     }
 
     private void UpdateGameTimer(object param)
@@ -75,5 +83,41 @@ public class HUDManager : MonoBehaviour
         {
             image.enabled = false;
         }
+    }
+
+    public void OnPlayerCollision() => StartCoroutine(MoveHUDImageToEnd());
+
+    private IEnumerator MoveHUDImageToEnd()
+    {
+        float elapsedTime = 0f;
+        Vector2 startingPos = _hudMoveImage.anchoredPosition;
+
+        while (elapsedTime < _moveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            _hudMoveImage.anchoredPosition = Vector2.Lerp(startingPos, _endPos, elapsedTime / _moveDuration);
+            yield return null;
+        }
+
+        _hudMoveImage.anchoredPosition = _endPos;
+
+        yield return new WaitForSeconds(3f - _moveDuration);
+
+        StartCoroutine(MoveHUDImageToStart());
+    }
+
+    private IEnumerator MoveHUDImageToStart()
+    {
+        float elapsedTime = 0f;
+        Vector2 startingPos = _hudMoveImage.anchoredPosition;
+
+        while (elapsedTime < _moveDuration / 2)
+        {
+            elapsedTime += Time.deltaTime;
+            _hudMoveImage.anchoredPosition = Vector2.Lerp(startingPos, _startPos, elapsedTime / _moveDuration);
+            yield return null;
+        }
+
+        _hudMoveImage.anchoredPosition = _startPos;
     }
 }
