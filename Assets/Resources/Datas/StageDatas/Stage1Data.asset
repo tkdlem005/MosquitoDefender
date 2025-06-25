@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stageTime: 45
   _mapData: {fileID: 11400000, guid: a9b3c256103ab6942a02e5183211c043, type: 2}
-  _mapPrefabs: {fileID: 2087889214746825665, guid: 0a747d5601ab5454bbcc512ea233b747, type: 3}
+  _mapPrefabs: {fileID: 4396892492445081229, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
   _cameraSettings:
   - _minX: -5
     _maxX: 4
