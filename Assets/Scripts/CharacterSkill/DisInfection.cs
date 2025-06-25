@@ -59,7 +59,7 @@ public class Disinfection : MonoBehaviour
     {
         if (_disinfectEffectPrefab != null)
         {
-            GameObject effect = Instantiate(_disinfectEffectPrefab, worldPos, Quaternion.identity);
+            GameObject effect = Instantiate(_disinfectEffectPrefab, new Vector3(worldPos.x, 0.5f, worldPos.z), Quaternion.identity);
         }
             
     }
