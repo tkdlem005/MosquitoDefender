@@ -168,4 +168,17 @@ public class Childrens : Character
             _pathIndex++;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        if (_currentPath == null) return;
+
+        Gizmos.color = Color.cyan;
+        for (int i = 0; i < _currentPath.Count - 1; i++)
+        {
+            Vector3 from = NavGridManager.Instance.GetWorldPosition(_currentPath[i]);
+            Vector3 to = NavGridManager.Instance.GetWorldPosition(_currentPath[i + 1]);
+            Gizmos.DrawLine(from, to);
+        }
+    }
 }

@@ -22,10 +22,12 @@ public class NavGridManager : ManagerBase
         if (!Instance) Instance = this;
         else Destroy(gameObject);
 
-        InitializeGrid();
+        EventManager.Instance.AddListener(EventList.ELoadingStart, InitializeGrid);
+
+        InitializeGrid(); // юс╫ц
         InitializeEnd();
     }
-    private void InitializeGrid()
+    private void InitializeGrid(object param = null)
     {
         if (_gridData == null)
         {

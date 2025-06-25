@@ -13,7 +13,8 @@ public enum EventList
     EGameWin,
     EGameLose,
     ESceneChangeStart,
-    ESceneChangeEnd
+    ESceneChangeEnd,
+    ELoadingStart
 }
 
 public class EventManager

@@ -43,6 +43,13 @@ public class GameManager : ManagerBase
     public void SetGameState(GameState gameState)
     {
         _gameState = gameState;
+
+        switch (_gameState)
+        {
+            case GameState.Stage1 or GameState.Stage2 or GameState.Stage3:
+                EventManager.Instance.TriggerEvent(EventList.ELoadingStart);
+                break;
+        }
     }
 
     private void StartGameTimer(object param)

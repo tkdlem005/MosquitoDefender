@@ -5,7 +5,8 @@ public class Disinfection : MonoBehaviour
 {
     private PlayerCharacter _owner;
 
-    
+    [SerializeField] private GameObject _disinfectEffectPrefab;
+
     [SerializeField] private float _curGasAmount;
     [SerializeField] private float _gasConsumptionRate = 1f;
 
@@ -39,7 +40,10 @@ public class Disinfection : MonoBehaviour
         if (NavGridManager.Instance.TryGetCell(gridPos, out GridCell cell))
         {
             if (!cell._bIsClean)
+            {
                 cell._bIsClean = true;
+                SpawnEffect(cell.GetGridPos());
+            }
         }
     }
 
@@ -49,6 +53,15 @@ public class Disinfection : MonoBehaviour
         _disinfectCoroutine = StartCoroutine(DisinfectRoutine());
 
         _startAction = true;
+    }
+
+    private void SpawnEffect(Vector3 worldPos)
+    {
+        if (_disinfectEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(_disinfectEffectPrefab, worldPos, Quaternion.identity);
+        }
+            
     }
 
     public void AddGas(float amount) => _curGasAmount = Mathf.Min(_curGasAmount + amount, PlayerCharacter.Instance.MaxGasAmount);
