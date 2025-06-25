@@ -50,7 +50,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -97,10 +97,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterRigidBody: {fileID: 0}
   _characterCollider: {fileID: 0}
+  _remainTime: 10
   _rotationSpeed: 10
   _chaseRange: 8
   _moveSpeed: 5
   _pathUpdateInterval: 0.7
+  _playerStunTime: 3
 --- !u!1 &7130299276377466975
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,8 @@ public class CustomEvent_SpawnChildren : CustomEvent
         }
 
         children.transform.position = transform.parent.transform.position;
+
+        SoundManager.Instance.PlaySFX(4);
         children.SetActive(true);
     }
 }

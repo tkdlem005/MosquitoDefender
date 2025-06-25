@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: MapSettingDone
-  _eventList: 11
+  _eventList: 9
 --- !u!1 &1474954088
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: ControllerSettingDone
-  _eventList: 12
+  _eventList: 10
 --- !u!1 &1547302679
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: SceneChageEnd
-  _eventList: 8
+  _eventList: 6
 --- !u!1 &2069096188
 GameObject:
   m_ObjectHideFlags: 0

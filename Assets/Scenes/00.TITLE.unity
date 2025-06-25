@@ -2139,6 +2139,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bef14515aff847b4eafe50ef4266b8c6, type: 2}
   - {fileID: 11400000, guid: c8bde5a85e06c634191e74dcc20527ed, type: 2}
   - {fileID: 11400000, guid: f74d1607c9f501a4f9bbebd9e01e0631, type: 2}
+  - {fileID: 11400000, guid: f509aee7acc8e8e4e829d5f75f987fda, type: 2}
   _bgmSource: {fileID: 0}
   _sfxSource: {fileID: 0}
   _disInfectionSource: {fileID: 0}

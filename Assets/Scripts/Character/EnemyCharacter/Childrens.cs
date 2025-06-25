@@ -21,10 +21,15 @@ public class Childrens : Character, IFreezable
     private float _lastPitchAngle = 0f;
     private bool _isFrozen = false;
 
+    [SerializeField] private float _remainTime = 10f;
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private float _chaseRange = 5f;
     [SerializeField] private float _moveSpeed = 3f;
     [SerializeField] private float _pathUpdateInterval = 0.5f;
+
+    [SerializeField] private float _playerStunTime = 3f;
+
+    protected void OnEnable() => StartCoroutine(DestroyAfterTime(_remainTime));
 
     protected override void Start()
     {
@@ -193,11 +198,34 @@ public class Childrens : Character, IFreezable
 
     private IEnumerator FreezeRoutine(float duration)
     {
+        if(_isFrozen) yield break;
+
         _isFrozen = true;
         _targetPlayer = null;
 
         yield return new WaitForSeconds(duration);
 
         _isFrozen = false;
+    }
+
+    private IEnumerator DestroyAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (PlayerCharacter.Instance.IsFreeze)
+            {
+                Destroy(this);
+                return;
+            }
+
+            PlayerCharacter.Instance.Freeze(_playerStunTime);
+            _isFrozen = true;
+        }
     }
 }

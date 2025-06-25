@@ -20,11 +20,14 @@ public class PlayerCharacter : Character
     private Vector3? _moveTarget = null;
     private float _lastY;
     private float _lastPitchAngle = 0f;
+    private bool _isFreeze;
 
     public Horn Horn => _horn;
     public float MoveSpeed => _moveSpeed;
     public float RotationSpeed => _rotationSpeed;
     public float MaxGasAmount => _maxGasAmount;
+
+    public bool IsFreeze => _isFreeze;
 
     protected override void Awake()
     {
@@ -138,8 +141,22 @@ public class PlayerCharacter : Character
     {
         _disinfection.Execute();
     }
+
+    public void Freeze(float time) => StartCoroutine(FreezePlayer(time));
+
     public void MoveTo(Vector3 target)
     {
         _moveTarget = target;
+    }
+
+    IEnumerator FreezePlayer(float time)
+    {
+        InputManager.Instance.CanMove = false;
+        _isFreeze = true;
+
+        yield return new WaitForSeconds(time);
+
+        InputManager.Instance.CanMove = true;
+        _isFreeze = false;
     }
 }
