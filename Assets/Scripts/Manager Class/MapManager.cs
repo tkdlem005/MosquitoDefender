@@ -11,6 +11,8 @@ public class MapManager : ManagerBase
 
     private void Awake() => Initialize();
 
+    private void OnDestroy() => EventManager.Instance.AddListener(EventList.ESettingMap, MapSetting);
+
     protected override void Initialize()
     {
         if (!Instance) Instance = this;

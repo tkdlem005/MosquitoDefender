@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum SceneState
 {
-    TITLE, LOADING, PLAY, CLEAR, FAIL, END
+    TITLE, LOADING, PLAY, CLEAR, FAIL, ABILITYSELECT, END
 }
 
 public class SceneManager : ManagerBase
@@ -15,6 +15,8 @@ public class SceneManager : ManagerBase
     [SerializeField] private SceneState _curSceneState;
 
     private void Awake() => Initialize();
+
+    private void OnDestroy() => EventManager.Instance.RemoveListener(EventList.ESceneChangeStart, SetSceneState);
 
     protected override void Initialize()
     {

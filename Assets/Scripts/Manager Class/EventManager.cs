@@ -10,8 +10,6 @@ public enum EventList
     EUpdateGasGauge,
     EGameStart,
     EUpdateTimer,
-    EGameWin,
-    EGameLose,
     ESceneChangeStart,
     ESceneChangeEnd,
     ELoadingStart,

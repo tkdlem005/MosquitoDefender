@@ -31,6 +31,12 @@ public class GameManager : ManagerBase
 
     private void Awake() => Initialize();
 
+    private void OnDestroy()
+    {
+        EventManager.Instance.RemoveListener(EventList.ELoadingStart, LoadNextGame);
+        EventManager.Instance.RemoveListener(EventList.EGameStart, StartGameTimer);
+    }
+
     protected override void Initialize()
     {
         if (!Instance) Instance = this;
@@ -99,7 +105,7 @@ public class GameManager : ManagerBase
 
         _isGameOver = true;
         _gameState = GameState.Clear;
-        EventManager.Instance.TriggerEvent(EventList.EGameWin);
+        EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.CLEAR);
 
         if (_timerCoroutine != null) StopCoroutine(_timerCoroutine);
     }
@@ -114,7 +120,7 @@ public class GameManager : ManagerBase
         {
             _isGameOver = true;
             _gameState = GameState.Fail;
-            EventManager.Instance.TriggerEvent(EventList.EGameLose, _gameState);
+            EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.CLEAR);
         }
     }
 
