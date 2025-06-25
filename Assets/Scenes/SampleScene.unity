@@ -1528,6 +1528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timerText: {fileID: 1906093362}
   _gasGauge: {fileID: 29517707}
+  _hornUI: {fileID: 0}
+  _hornVolumeImages: []
 --- !u!114 &1241662122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1689,10 +1691,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterRigidBody: {fileID: 0}
   _characterCollider: {fileID: 0}
+  _remainTime: 10
   _rotationSpeed: 10
   _chaseRange: 8
   _moveSpeed: 5
   _pathUpdateInterval: 0.3
+  _playerStunTime: 3
 --- !u!54 &1289553279
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2811,7 +2815,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3919740124302773424, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+    - {fileID: 2036503780875738770, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+    - {fileID: 4177441266466585599, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+    - {fileID: 2058325796216696231, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
+    - {fileID: 1295425103394828667, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc9d887dd2f6d0040aea3b7e4da125ed, type: 3}
