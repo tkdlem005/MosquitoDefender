@@ -38,9 +38,11 @@ public class Disinfection : MonoBehaviour
         if (_curGasAmount <= 0f)
         {
             SoundManager.Instance.PlaySFX(2);
+            return; // 가스 없으면 클린 불가능하니까 여기서 종료
         }
 
         SoundManager.Instance.PlaySFX(1);
+
         Vector3 worldPos = transform.position;
         Vector2Int gridPos = new Vector2Int(Mathf.RoundToInt(worldPos.x), Mathf.RoundToInt(worldPos.z));
 
@@ -56,6 +58,7 @@ public class Disinfection : MonoBehaviour
             }
         }
     }
+
 
     public void Execute()
     {

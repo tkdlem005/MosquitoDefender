@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class ManagerInitializer : MonoBehaviour
 {
-    private enum ManagerList
-    {
-        DataManager, CoroutineDelegator, GameManager, SceneManager, InputManager, NavGridManager, SoundManager, MapManager, MaxCount
-    }
-
     public static bool bIsCreate = false;
 
     [Header("매니저 프리팹들을 순서대로 넣으세요")]
@@ -43,16 +38,31 @@ public class ManagerInitializer : MonoBehaviour
         AwakeManager(null);
     }
 
-    // 프리팹들을 Instantiate 하여 _managerInstances에 담고 모두 비활성화 상태로 둠
     private void CreateManagerInstances()
     {
-        foreach (var prefab in _managerPrefabs)
+        for (int i = 0; i < _managerPrefabs.Count; i++)
         {
-            GameObject instance = Instantiate(prefab, transform);
+            Transform parentTransform = transform; // 기본 부모: ManagerInitializer 오브젝트
+
+            if (i == _managerPrefabs.Count - 1)
+            {
+                // 마지막 프리팹은 PlayerHUD.Instance.transform.GetChild(0) 을 부모로 지정
+                if (HUDManager.Instance != null && HUDManager.Instance.transform.childCount > 0)
+                {
+                    parentTransform = HUDManager.Instance.transform.GetChild(0);
+                }
+                else
+                {
+                    Debug.LogWarning("HUDManager.Instance 또는 자식이 없습니다. 기본 부모로 생성합니다.");
+                }
+            }
+
+            GameObject instance = Instantiate(_managerPrefabs[i], parentTransform);
             instance.SetActive(false);
             _managerInstances.Add(instance);
         }
     }
+
 
     private void AwakeManager(object param)
     {
