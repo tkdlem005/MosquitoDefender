@@ -15,9 +15,10 @@ public class InputManager : ManagerBase
 
     private float _inputX = 0.0f;
     private float _inputZ = 0.0f;
-    
 
     public bool CanMove { get { return _canMove; }  set { _canMove = value; } }
+
+    public Vector2 RawInput => new Vector2(_inputX, _inputZ);
 
     private void Awake() => Initialize();
 

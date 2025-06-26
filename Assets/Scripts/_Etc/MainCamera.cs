@@ -6,6 +6,12 @@ public class MainCamera : MonoBehaviour
 {
     public Camera _mainCamera;
 
+    [SerializeField, Range(0f, 10f)]
+    private float followSpeed = 5f;
+
+    [SerializeField, Range(0f, 10f)]
+    private float rotationSpeed = 5f;
+
     [field: SerializeField] public Transform TargetTransform { get; private set; }
     [field: SerializeField] public Vector3 PositionOffset { get; private set; }     // 카메라와 플레이어 사이의 거리
 
@@ -53,16 +59,20 @@ public class MainCamera : MonoBehaviour
 
     private void CameraFollow()
     {
-        if(TargetTransform != null)
+        if (TargetTransform != null)
         {
-            Vector3 cameraPosition;
-            cameraPosition.x = Mathf.Clamp(TargetTransform.position.x, MinX, MaxX);
-            cameraPosition.y = PositionOffset.y;
-            cameraPosition.z = Mathf.Clamp(TargetTransform.position.z, MinZ, MaxZ);
+            Vector3 targetPosition = TargetTransform.position + TargetTransform.rotation * PositionOffset;
 
-            transform.position = cameraPosition + PositionOffset;
+            targetPosition.x = Mathf.Clamp(targetPosition.x, MinX, MaxX);
+            targetPosition.z = Mathf.Clamp(targetPosition.z, MinZ, MaxZ);
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+
+            Quaternion targetRotation = TargetTransform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
+
 
     public void SetTarget(Transform targetTransform) => TargetTransform = targetTransform;
 }
