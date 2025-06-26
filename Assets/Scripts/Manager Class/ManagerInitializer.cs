@@ -9,6 +9,8 @@ public class ManagerInitializer : MonoBehaviour
     [Header("매니저 프리팹들을 순서대로 넣으세요")]
     public List<GameObject> _managerPrefabs;
 
+    public RectTransform _rectTransform;
+
     // 생성된 매니저 인스턴스들
     private List<GameObject> _managerInstances = new List<GameObject>();
 
@@ -42,18 +44,18 @@ public class ManagerInitializer : MonoBehaviour
     {
         for (int i = 0; i < _managerPrefabs.Count; i++)
         {
-            Transform parentTransform = transform; // 기본 부모: ManagerInitializer 오브젝트
+            Transform parentTransform = transform; // 기본 부모
 
             if (i == _managerPrefabs.Count - 1)
             {
-                // 마지막 프리팹은 PlayerHUD.Instance.transform.GetChild(0) 을 부모로 지정
-                if (HUDManager.Instance != null && HUDManager.Instance.transform.childCount > 0)
+                // 마지막 매니저 프리팹은 _rectTransform 하위에 생성
+                if (_rectTransform != null)
                 {
-                    parentTransform = HUDManager.Instance.transform.GetChild(0);
+                    parentTransform = _rectTransform;
                 }
                 else
                 {
-                    Debug.LogWarning("HUDManager.Instance 또는 자식이 없습니다. 기본 부모로 생성합니다.");
+                    Debug.LogWarning("_rectTransform이 null입니다. 기본 부모로 생성됩니다.");
                 }
             }
 
@@ -62,6 +64,7 @@ public class ManagerInitializer : MonoBehaviour
             _managerInstances.Add(instance);
         }
     }
+
 
 
     private void AwakeManager(object param)
