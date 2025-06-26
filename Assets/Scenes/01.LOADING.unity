@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc02ef9daa279649b2a4070a7cc25c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneState: 2
+  _sceneState: 3
 --- !u!1 &404690885
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f48ea32c395534c8dfdabe638bdaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _RunnerID: 101
   _mode: 3
   _customStartConditions:
   - {fileID: 1042424614}
@@ -451,7 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f48ea32c395534c8dfdabe638bdaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _RunnerID: 100
   _mode: 1
   _customStartConditions:
   - {fileID: 1547302682}

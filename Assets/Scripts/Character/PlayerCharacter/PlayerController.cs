@@ -25,36 +25,18 @@ public class PlayerController : MonoBehaviour
     {
         if (_isMoving) return;
 
-        Vector2 input = InputManager.Instance.RawInput;
+        MoveDirection dir = InputManager.Instance.ReservedDirection;
+        if (dir == MoveDirection.None) return;
 
-        if (Mathf.Abs(input.x) > 0 && Mathf.Abs(input.y) > 0)
-        {
-            input.y = 0; 
-        }
-
-        if (input == Vector2.zero)
-            return;
-
-        Vector3 localMoveDir = new Vector3(input.x, 0, input.y).normalized;
-
-        Vector3 worldMoveDir = _owner.transform.rotation * localMoveDir;
-
-        Vector2Int offsetXZ = new Vector2Int(
-            Mathf.RoundToInt(worldMoveDir.x),
-            Mathf.RoundToInt(worldMoveDir.z)
-        );
-
+        Vector2Int offsetXZ = DirectionToXZOffset(dir);
         Vector2Int nextXZ = _currentXZ + offsetXZ;
 
-        if (NavGridManager.Instance.TryGetCell(nextXZ, out var nextCell) && nextCell._bIsWalkable)
+        if (NavGridManager.Instance.TryGetCell(nextXZ, out var nextCell) &&
+            nextCell._bIsWalkable)
         {
             _currentXZ = nextCell._gridPosXZ;
-            _targetWorldPos = NavGridManager.Instance.GetWorldPosition(_currentXZ);
 
-            // 플레이어가 이동 방향을 바라보게 회전 (회전은 4방향만 허용)
-            Vector3 lookDirection = new Vector3(offsetXZ.x, 0, offsetXZ.y);
-            if (lookDirection != Vector3.zero)
-                _owner.transform.rotation = Quaternion.LookRotation(lookDirection);
+            _targetWorldPos = NavGridManager.Instance.GetWorldPosition(_currentXZ);
 
             _owner.MoveTo(_targetWorldPos);
             _isMoving = true;
@@ -64,8 +46,6 @@ public class PlayerController : MonoBehaviour
             OnArrived();
         }
     }
-
-
 
     public void ResetController(object param)
     {
@@ -81,8 +61,6 @@ public class PlayerController : MonoBehaviour
     {
         InputManager.Instance.ClearReservedDirection();
         _isMoving = false;
-
-        MiniMapGrid.Instance.UpdatePlayerPosition(_currentXZ);
     }
 
     private void SetupController(object param)
@@ -107,4 +85,3 @@ public class PlayerController : MonoBehaviour
         };
     }
 }
-

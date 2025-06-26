@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum SceneState
 {
-    TITLE, LOADING, PLAY, CLEAR, FAIL, ABILITYSELECT, END
+    TITLE, MANUAL, LOADING, PLAY, CLEAR, FAIL, ABILITYSELECT, END
 }
 
 public class SceneManager : ManagerBase
