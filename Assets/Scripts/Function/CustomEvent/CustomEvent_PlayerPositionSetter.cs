@@ -20,17 +20,17 @@ public class CustomEvent_PlayerPositionSetter : CustomEvent
         {
             case GameState.None:
                 PlayerCharacter.Instance.transform.position = _position[0];
-                PlayerCharacter.Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+                PlayerCharacter.Instance.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
 
             case GameState.Stage1:
                 PlayerCharacter.Instance.transform.position = _position[1];
-                PlayerCharacter.Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+                PlayerCharacter.Instance.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
 
             case GameState.Stage2:
                 PlayerCharacter.Instance.transform.position = _position[2];
-                PlayerCharacter.Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+                PlayerCharacter.Instance.transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
 
             default:
