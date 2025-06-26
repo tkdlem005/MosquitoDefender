@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab026327d05869419d0bdb3a94bcced, type: 3}
   m_Name: Stage2Data
   m_EditorClassIdentifier: 
-  _stageTime: 90
+  _stageTime: 3
   _mapData: {fileID: 11400000, guid: b0ceb0bd10827164a90831dae5db4359, type: 2}
   _mapPrefabs: {fileID: 3317409762493842220, guid: 7bda5f874b3ea254c88f8f59a3cbfb19, type: 3}
   _cameraSettings:

@@ -22,7 +22,7 @@ public class GameManager : ManagerBase
 
     [SerializeField, Space(20f)]
     private GameState _gameState = GameState.None;
-    private GameState _prevGameState = GameState.None;
+    [SerializeField] private GameState _prevGameState = GameState.None;
 
     private float _currentTime;
     private bool _isGameOver;
@@ -126,7 +126,8 @@ public class GameManager : ManagerBase
         }
 
         _isGameOver = true;
-        EventManager.Instance.TriggerEvent(EventList.EStageEnd);
+        _prevGameState = _gameState;
+
         if (_gameState == GameState.Stage3)
         {
             _gameState = GameState.Ending;
@@ -137,6 +138,8 @@ public class GameManager : ManagerBase
             _gameState = GameState.Clear;
             EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.CLEAR);
         }
+        EventManager.Instance.TriggerEvent(EventList.EStageEnd);
+        _isGameOver = false;
 
         if (_timerCoroutine != null) StopCoroutine(_timerCoroutine);
     }
@@ -152,7 +155,6 @@ public class GameManager : ManagerBase
             _isGameOver = true;
 
             _prevGameState = _gameState;
-            _gameState = GameState.Fail;
 
             EventManager.Instance.TriggerEvent(EventList.EStageEnd);
             EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.FAIL);
