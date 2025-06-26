@@ -5,18 +5,16 @@ using System;
 
 public class CustomCondition_ListenEvent : CustomCondition
 {
-    public string _id;
     public EventList _eventList;
 
     private bool _checker = false;
-    private string _hiddenID = "CustomCondition_ListenEvent";
 
     private void Awake() => EventManager.Instance.AddListener(_eventList, OnEvent);
 
     private void OnDestroy() => EventManager.Instance.RemoveListener(_eventList, OnEvent);
 
     public override void CompleteCondition(Action action) => 
-        CoroutineDelegator.Instance.ExecuteCoroutine(_id + _hiddenID, ConditionWaiter(action));
+        CoroutineDelegator.Instance.ExecuteCoroutine(ConditionWaiter(action));
 
     private void OnEvent(object param) => _checker = true;
 

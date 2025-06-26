@@ -7,14 +7,12 @@ using UnityEngine;
 public class CustomEvent_SpawnChildren : CustomEvent
 {
     public float _delayTime = 0.3f;
-    public string _spawnerID = "";
 
-    private string _hiddenID = "CustomEvent_SpawnChildren";
     private GameObject _childrenPrefab;
     private Sprite[] _childrenSprites;
 
     public override void ExecuteEvent(Action action) 
-        => CoroutineDelegator.Instance.ExecuteCoroutine(_hiddenID + _spawnerID, EventWaiter(action));
+        => CoroutineDelegator.Instance.ExecuteCoroutine(EventWaiter(action));
 
     private IEnumerator EventWaiter(Action action)
     {

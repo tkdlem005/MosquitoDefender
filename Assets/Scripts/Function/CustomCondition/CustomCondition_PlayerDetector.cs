@@ -8,9 +8,7 @@ public class CustomCondition_PlayerDetector : CustomCondition
 {
     private BoxCollider _boxCollider;
 
-    public string _id;
     private bool _checker = false;
-    private string _hiddenID = "CustomCondition_ListenEvent";
 
     private void Awake()
     {
@@ -19,7 +17,7 @@ public class CustomCondition_PlayerDetector : CustomCondition
     }
 
     public override void CompleteCondition(Action action)
-        => CoroutineDelegator.Instance.ExecuteCoroutine(_id + _hiddenID, ConditionWaiter(action));
+        => CoroutineDelegator.Instance.ExecuteCoroutine(ConditionWaiter(action));
 
     private IEnumerator ConditionWaiter(Action action)
     {

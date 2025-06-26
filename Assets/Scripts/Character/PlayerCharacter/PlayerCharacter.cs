@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class PlayerCharacter : Character
 {
-    public static PlayerCharacter Instance;
+    public static PlayerCharacter Instance {  get; private set; }
 
-    private PlayerController _controller;
-    private Disinfection _disinfection;
-    private Horn _horn;
+    [SerializeField] private PlayerController _controller;
+    [SerializeField] private Disinfection _disinfection;
+    [SerializeField] private Horn _horn;
 
     [SerializeField] private float _moveSpeed = 8.0f;
     [SerializeField] private float _rotationSpeed = 10f;
@@ -39,15 +39,6 @@ public class PlayerCharacter : Character
         else Destroy(this.gameObject);
 
         EventManager.Instance.AddListener(EventList.EGameStart, PlayerStart);
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-
-        TryGetComponent<PlayerController>(out _controller);
-        TryGetComponent<Disinfection>(out _disinfection);
-        TryGetComponent<Horn>(out _horn);
     }
 
     protected override void Update()
@@ -99,7 +90,6 @@ public class PlayerCharacter : Character
         {
             isRampArea = true;
 
-            // ¿Ãµø ¡ﬂ
             if (_moveTarget.HasValue)
             {
                 pitchAngle = verticalDiff < 0 ? 15f : -15f;
@@ -137,6 +127,19 @@ public class PlayerCharacter : Character
         }
 
         _lastY = currentY;
+    }
+
+    public void ResetPlayer()
+    {
+        _moveTarget = null;
+        _isFreeze = false;
+
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+
+        _moveSpeed = 8.0f;
+        _hornRadius = 1.5f;
+        _maxGasAmount = 50f;
     }
 
     private void PlayerStart(object param)

@@ -9,11 +9,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerCharacter _owner;
     [SerializeField] private Horn _horn;
 
-    private Vector2Int _currentXZ;
-    private Vector3 _targetWorldPos;
+    [SerializeField] private Vector2Int _currentXZ;
+    [SerializeField] private Vector3 _targetWorldPos;
     private bool _isMoving = false;
 
-    private void Awake() => EventManager.Instance.AddListener(EventList.EMapSettingDone, SetupController);
+    private void Awake()
+    {
+        EventManager.Instance.AddListener(EventList.EMapSettingDone, SetupController);
+        EventManager.Instance.AddListener(EventList.EStageEnd, ResetController);
+    }
 
     private void Start() => _owner = PlayerCharacter.Instance;
 
@@ -43,6 +47,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ResetController(object param)
+    {
+        InputManager.Instance.ClearReservedDirection();
+
+        _isMoving = false;
+
+        if (_owner == null)
+            _owner = PlayerCharacter.Instance;
+    }
+
     public void OnArrived()
     {
         InputManager.Instance.ClearReservedDirection();
@@ -51,8 +65,11 @@ public class PlayerController : MonoBehaviour
 
     private void SetupController(object param)
     {
-        _currentXZ = NavGridManager.Instance.GetXZFromWorld(transform.position);
-        _targetWorldPos = transform.position;
+        Debug.Log("Receive Event");
+
+        _currentXZ = NavGridManager.Instance.GetXZFromWorld(PlayerCharacter.Instance.transform.position);
+        _targetWorldPos = PlayerCharacter.Instance.transform.position;
+
         EventManager.Instance.TriggerEvent(EventList.EControllerSettingDone);
     }
 

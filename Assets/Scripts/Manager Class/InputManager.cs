@@ -32,6 +32,16 @@ public class InputManager : ManagerBase
         InitializeEnd();
     }
 
+    protected override void ResetManager(object param)
+    {
+        _inputX = 0.0f;
+        _inputZ = 0.0f;
+
+        _reservedDirection = MoveDirection.None;
+
+        _canMove = false;
+    }
+
     public void ClearReservedDirection() => _reservedDirection = MoveDirection.None;
 
     private void Update()

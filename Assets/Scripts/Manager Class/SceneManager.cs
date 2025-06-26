@@ -14,9 +14,11 @@ public class SceneManager : ManagerBase
 
     [SerializeField] private SceneState _curSceneState;
 
+    private Coroutine _loadCoroutine;
+
     private void Awake() => Initialize();
 
-    private void OnDestroy() => EventManager.Instance.RemoveListener(EventList.ESceneChangeStart, SetSceneState);
+    private void Start() => _curSceneState = SceneState.TITLE;
 
     protected override void Initialize()
     {
@@ -28,18 +30,31 @@ public class SceneManager : ManagerBase
         InitializeEnd();
     }
 
-    private void Start() => _curSceneState = SceneState.TITLE;
+    protected override void ResetManager(object param)
+    {
+        if (_loadCoroutine != null)
+        {
+            StopCoroutine(_loadCoroutine);
+            _loadCoroutine = null;
+        }
+
+        _curSceneState = SceneState.TITLE;
+    }
 
     private void SetSceneState(object param)
     {
         SceneState sceneState = (SceneState)param;
 
-        AsyncOperation asyncload = null;
+        if (_loadCoroutine != null)
+        {
+            StopCoroutine(_loadCoroutine);
+            _loadCoroutine = null;
+        }
 
-        asyncload = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)sceneState, LoadSceneMode.Single);
+        AsyncOperation asyncload = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)sceneState, LoadSceneMode.Single);
         _curSceneState = sceneState;
 
-        StartCoroutine(LoadScene(asyncload));
+        _loadCoroutine = StartCoroutine(LoadScene(asyncload));
     }
 
     public IEnumerator LoadScene(AsyncOperation asyncLoad)

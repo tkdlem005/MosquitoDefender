@@ -10,6 +10,11 @@ public class DataManager : ManagerBase
 
     private void Awake() => Initialize();
 
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     protected override void Initialize()
     {
         if (!Instance) Instance = this;
@@ -17,6 +22,9 @@ public class DataManager : ManagerBase
 
         InitializeEnd();
     }
+
+    protected override void ResetManager(object param) { }
+
 
     public StageData GetStageData(int stage)
     {

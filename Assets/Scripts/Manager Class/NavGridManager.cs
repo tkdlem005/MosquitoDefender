@@ -17,8 +17,6 @@ public class NavGridManager : ManagerBase
 
     private void Awake() => Initialize();
 
-    private void OnDestroy() => EventManager.Instance.RemoveListener(EventList.ESettingMap, InitializeGrid);
-
     protected override void Initialize()
     {
         if (!Instance) Instance = this;
@@ -28,6 +26,16 @@ public class NavGridManager : ManagerBase
 
         InitializeEnd();
     }
+
+    protected override void ResetManager(object param)
+    {
+        _grid.Clear();
+        _cleanStatus.Clear();
+        _gridData = null;
+
+        _useDebuger = false;
+    }
+
     private void InitializeGrid(object param = null)
     {
         if (param is StageData stageData)

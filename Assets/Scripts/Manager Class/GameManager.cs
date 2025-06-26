@@ -22,20 +22,18 @@ public class GameManager : ManagerBase
 
     [SerializeField, Space(20f)]
     private GameState _gameState = GameState.None;
+    private GameState _prevGameState = GameState.None;
 
     private float _currentTime;
-    private bool _isClear;
     private bool _isGameOver;
 
     public float CurrentTime => _currentTime;
 
-    private void Awake() => Initialize();
+    public GameState CurGameState => _gameState;
 
-    private void OnDestroy()
-    {
-        EventManager.Instance.RemoveListener(EventList.ELoadingStart, LoadNextGame);
-        EventManager.Instance.RemoveListener(EventList.EGameStart, StartGameTimer);
-    }
+    public GameState PrevGameState => _prevGameState;
+
+    private void Awake() => Initialize();
 
     protected override void Initialize()
     {
@@ -48,40 +46,60 @@ public class GameManager : ManagerBase
         InitializeEnd();
     }
 
+    protected override void ResetManager(object param)
+    {
+        _gameState = GameState.None;
+
+        _currentTime = 0f;
+
+        _isGameOver = false;
+
+        if (_timerCoroutine != null)
+        {
+            StopCoroutine(_timerCoroutine);
+            _timerCoroutine = null;
+        }
+    }
+
     public void LoadNextGame(object param)
     {
         Debug.Log("LoadNextGame");
 
-        switch (_gameState)
+        if(_gameState == GameState.Clear)
         {
-            case GameState.None:
-                _gameState = GameState.Stage1;
-                EventManager.Instance.TriggerEvent(
-                    EventList.ESettingMap,
-                    DataManager.Instance.GetStageData(1)
-                );
-                break;
-
-            case GameState.Stage1:
-                _gameState = GameState.Stage2;
-                EventManager.Instance.TriggerEvent(
-                    EventList.ESettingMap,
-                    DataManager.Instance.GetStageData(2)
-                );
-                break;
-
-            case GameState.Stage2:
-                _gameState = GameState.Stage3;
-                EventManager.Instance.TriggerEvent(
-                    EventList.ESettingMap,
-                    DataManager.Instance.GetStageData(3)
-                );
-                break;
-
-            case GameState.Stage3:
-                _gameState = GameState.Ending;
-                break;
+            _gameState = _prevGameState;
         }
+
+            switch (_gameState)
+            {
+                case GameState.None:
+                    _gameState = GameState.Stage1;
+                    EventManager.Instance.TriggerEvent(
+                        EventList.ESettingMap,
+                        DataManager.Instance.GetStageData(1)
+                    );
+                    break;
+
+                case GameState.Stage1:
+                    _gameState = GameState.Stage2;
+                    EventManager.Instance.TriggerEvent(
+                        EventList.ESettingMap,
+                        DataManager.Instance.GetStageData(2)
+                    );
+                    break;
+
+                case GameState.Stage2:
+                    _gameState = GameState.Stage3;
+                    EventManager.Instance.TriggerEvent(
+                        EventList.ESettingMap,
+                        DataManager.Instance.GetStageData(3)
+                    );
+                    break;
+
+                case GameState.Stage3:
+                    _gameState = GameState.Ending;
+                    break;
+            }
     }
 
     private void StartGameTimer(object param)
@@ -106,6 +124,7 @@ public class GameManager : ManagerBase
         _isGameOver = true;
         _gameState = GameState.Clear;
         EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.CLEAR);
+        _isGameOver = false;
 
         if (_timerCoroutine != null) StopCoroutine(_timerCoroutine);
     }
@@ -119,25 +138,42 @@ public class GameManager : ManagerBase
         if (!_isGameOver)
         {
             _isGameOver = true;
+
+            _prevGameState = _gameState;
             _gameState = GameState.Fail;
-            EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.CLEAR);
+            EventManager.Instance.TriggerEvent(EventList.EStageEnd);
+            EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.FAIL);
+            _isGameOver = false;
         }
     }
 
     private IEnumerator GameTimerRoutine(float StageLimitTime)
     {
+
         _currentTime = StageLimitTime;
+        EventManager.Instance.TriggerEvent(EventList.EUpdateTimer, _currentTime);
+
+        float elapsedTime = 0f;
 
         while (_currentTime > 0f && !_isGameOver)
         {
-            yield return new WaitForSeconds(1f);
-            _currentTime--;
+            elapsedTime += Time.deltaTime;
 
-            EventManager.Instance.TriggerEvent(EventList.EUpdateTimer, _currentTime);
+            if (elapsedTime >= 1f)
+            {
+                int secondsToDecrease = Mathf.FloorToInt(elapsedTime);
+                _currentTime -= secondsToDecrease;
+                elapsedTime -= secondsToDecrease;
 
-            CheckAllCellsClean();
+                EventManager.Instance.TriggerEvent(EventList.EUpdateTimer, _currentTime);
+
+                CheckAllCellsClean();
+            }
+
+            yield return null;
         }
 
-        if (!_isGameOver) OnStageOver();
+        if (!_isGameOver)
+            OnStageOver();
     }
 }

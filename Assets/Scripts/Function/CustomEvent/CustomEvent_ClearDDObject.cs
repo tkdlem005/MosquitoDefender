@@ -7,8 +7,13 @@ public class CustomEvent_ClearDDObject : CustomEvent
 {
     public override void ExecuteEvent(Action action)
     {
-        GameObject DDObj = GameObject.FindWithTag("DDObj");
-        Destroy(DDObj);
+        GameObject[] DDObj = GameObject.FindGameObjectsWithTag("DDObj");
+
+        foreach (var elem in DDObj)
+        {
+            Destroy(elem);
+        }
+
         Destroy(PlayerCharacter.Instance.gameObject);
 
         action?.Invoke();

@@ -41,9 +41,24 @@ public class HUDManager : MonoBehaviour
         if (!Instance) Instance = this;
         else Destroy(Instance);
 
+        EventManager.Instance.AddListener(EventList.EStageEnd, ResetHUD);
         EventManager.Instance.AddListener(EventList.EUpdateGasGauge, UpdateGasGauge);
         EventManager.Instance.AddListener(EventList.EUpdateTimer, UpdateGameTimer);
         EventManager.Instance.AddListener(EventList.EUpdateHornDecibel, UpdateHornDecibel);
+    }
+
+    private void ResetHUD(object param)
+    {
+        if (_timerText != null)
+            _timerText.text = "0";
+
+        if (_gasGauge != null)
+            _gasGauge.value = 1;
+
+        ResetHornUI();
+
+        if (_hudMoveImage != null)
+            _hudMoveImage.anchoredPosition = _startPos;
     }
 
     private void UpdateGasGauge(object param)
@@ -55,6 +70,8 @@ public class HUDManager : MonoBehaviour
 
     private void UpdateGameTimer(object param)
     {
+        Debug.Log(param);
+
         if (_timerText == null || param == null) return;
 
         if (param is float time)

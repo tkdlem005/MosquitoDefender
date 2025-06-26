@@ -6,11 +6,11 @@ using UnityEngine;
 public class CustomCondition_ManagerLoadDone : CustomCondition
 {
     private bool _checker;
-    private string _id = "CustomCondition_ManagerLoadDone";
 
     private void Awake() => EventManager.Instance.AddListener(EventList.EManagerAwake, OnEvent);
 
-    public override void CompleteCondition(Action action) => CoroutineDelegator.Instance.ExecuteCoroutine(_id, ConditionWaiter(action));
+    public override void CompleteCondition(Action action) => 
+        CoroutineDelegator.Instance.ExecuteCoroutine(ConditionWaiter(action));
 
     public void OnEvent(object param)
     {

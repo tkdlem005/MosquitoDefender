@@ -11,9 +11,6 @@ public class CustomEvent_ParallelExecuter : CustomEvent
     [Header("동시에 실행시킬 이벤트들을 끌어다 넣어주세요.")]
     [Tooltip("동시에 실행할 CustomEvent 리스트")]
     [SerializeField] private List<CustomEvent> _subEvents;
-    [SerializeField] private string _id;
-
-    private string _hiddenID = "Event_ParallelExecuter";
 
     public override void ExecuteEvent(Action action)
     {
@@ -24,7 +21,7 @@ public class CustomEvent_ParallelExecuter : CustomEvent
             return;
         }
 
-        CoroutineDelegator.Instance.ExecuteCoroutine(_hiddenID + _id, RunParallelEvents(action));
+        CoroutineDelegator.Instance.ExecuteCoroutine(RunParallelEvents(action));
     }
 
     private IEnumerator RunParallelEvents(Action action)

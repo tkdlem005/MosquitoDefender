@@ -11,8 +11,6 @@ public class MapManager : ManagerBase
 
     private void Awake() => Initialize();
 
-    private void OnDestroy() => EventManager.Instance.AddListener(EventList.ESettingMap, MapSetting);
-
     protected override void Initialize()
     {
         if (!Instance) Instance = this;
@@ -23,10 +21,26 @@ public class MapManager : ManagerBase
         InitializeEnd();
     }
 
+    protected override void ResetManager(object param)
+    {
+        if (transform.childCount > 0)
+        {
+            Destroy(transform.GetChild(0).gameObject);
+        }
+
+        _mapObj = null;
+    }
+
     private void MapSetting(object param)
     {
         if (param is StageData stageData)
         {
+            if (transform.childCount > 0)
+            {
+                Destroy(transform.GetChild(0).gameObject);
+                _mapObj = null;
+            }
+
             _mapPrefab = stageData._mapPrefabs;
 
             _mapObj = Instantiate(_mapPrefab);

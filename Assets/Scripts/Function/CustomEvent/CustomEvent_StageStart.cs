@@ -5,13 +5,29 @@ using UnityEngine;
 
 public class CustomEvent_StageStart : CustomEvent
 {
-    public int _stageID = 0;
-
     public override void ExecuteEvent(Action action)
     {
-        if (_stageID == 0) return;
+        int stageID = -1;
 
-        float limitTime = DataManager.Instance.GetStageData(_stageID)._stageTime;
+        switch (GameManager.Instance.CurGameState)
+        {
+            case GameState.Stage1:
+                stageID = 1;
+                break;
+
+            case GameState.Stage2:
+                stageID = 2;
+                break;
+
+            case GameState.Stage3:
+                stageID = 3;
+                break;
+
+            default:
+                return;
+        }
+
+        float limitTime = DataManager.Instance.GetStageData(stageID)._stageTime;
 
         EventManager.Instance.TriggerEvent(EventList.EGameStart, limitTime);
 

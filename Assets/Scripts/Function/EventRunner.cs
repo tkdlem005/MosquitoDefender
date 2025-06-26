@@ -13,8 +13,6 @@ public class EventRunner : MonoBehaviour
         실행_후_비활성화
     }
 
-    public string _RunnerID = "";
-
     [Header("러너의 동작 모드")]
     [SerializeField] private RunnerMode _mode = RunnerMode.미선택;
 
@@ -41,14 +39,13 @@ public class EventRunner : MonoBehaviour
         if (_customStartConditions != null && _customStartConditions.Count > 0)
         {
             CoroutineDelegator.Instance.ExecuteCoroutine(
-                _RunnerID + "CheckCondition",
                 CheckCondition(
                     _customStartConditions,
                     _necessaryAndSufficientStartCondition,
-                    () => CoroutineDelegator.Instance.ExecuteCoroutine(_RunnerID + "Run", Run()))
+                    () => CoroutineDelegator.Instance.ExecuteCoroutine(Run()))
                 );
         }
-        else CoroutineDelegator.Instance.ExecuteCoroutine(_RunnerID + "Run", Run());
+        else CoroutineDelegator.Instance.ExecuteCoroutine(Run());
     }
 
     private IEnumerator CheckCondition(List<CustomCondition> conditions, bool requireAll, Action onComplete = null)
@@ -106,12 +103,11 @@ public class EventRunner : MonoBehaviour
 
                 case RunnerMode.실행_후_대기:
                     yield return ExecuteEvents();
-                    yield return CoroutineDelegator.Instance.ExecuteCoroutine(
-                        _RunnerID + "CheckCondition", 
+                    yield return CoroutineDelegator.Instance.ExecuteCoroutine( 
                         CheckCondition(
                             _customStartConditions,
                             _necessaryAndSufficientStartCondition,
-                            () => CoroutineDelegator.Instance.ExecuteCoroutine(_RunnerID + "Run", Run())
+                            () => CoroutineDelegator.Instance.ExecuteCoroutine(Run())
                         ));
 
                     yield break;

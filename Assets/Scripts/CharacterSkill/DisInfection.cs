@@ -20,6 +20,7 @@ public class Disinfection : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out _owner);
+        EventManager.Instance.AddListener(EventList.EStageEnd, ResetDisinfection);
     }
 
     private void OnDisable()
@@ -33,6 +34,7 @@ public class Disinfection : MonoBehaviour
     private void Update()
     {
         if (!_startAction) return;
+
         if (_curGasAmount <= 0f)
         {
             SoundManager.Instance.PlaySFX(2);
@@ -58,6 +60,17 @@ public class Disinfection : MonoBehaviour
         _disinfectCoroutine = StartCoroutine(DisinfectRoutine());
 
         _startAction = true;
+    }
+
+    public void ResetDisinfection(object param)
+    {
+        if (_disinfectCoroutine != null)
+        {
+            StopCoroutine(_disinfectCoroutine);
+            _disinfectCoroutine = null;
+        }
+
+        _startAction = false;
     }
 
     private void SpawnEffect(Vector3 worldPos)

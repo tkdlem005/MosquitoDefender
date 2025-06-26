@@ -18,6 +18,11 @@ public class SoundManager : ManagerBase
 
     private void Awake() => Initialize();
 
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     protected override void Initialize()
     {
         if (!Instance) Instance = this;
@@ -34,6 +39,27 @@ public class SoundManager : ManagerBase
         _disInfectionSource.loop = false;
 
         InitializeEnd();
+    }
+
+    protected override void ResetManager(object param) 
+    {
+        if (_bgmSource != null)
+        {
+            _bgmSource.Stop();
+            _bgmSource.clip = null;
+        }
+
+        if (_sfxSource != null)
+        {
+            _sfxSource.Stop();
+            _sfxSource.clip = null;
+        }
+
+        if (_disInfectionSource != null)
+        {
+            _disInfectionSource.Stop();
+            _disInfectionSource.clip = null;
+        }
     }
 
     public void PlayBGM(int id)
@@ -68,6 +94,21 @@ public class SoundManager : ManagerBase
         else
         {
             Debug.LogWarning($"SFX index {id} out of range!");
+        }
+    }
+
+    public void StopAllSFX()
+    {
+        if (_sfxSource != null && _sfxSource.isPlaying)
+        {
+            _sfxSource.Stop();
+            _sfxSource.clip = null;
+        }
+
+        if (_disInfectionSource != null && _disInfectionSource.isPlaying)
+        {
+            _disInfectionSource.Stop();
+            _disInfectionSource.clip = null;
         }
     }
 }
