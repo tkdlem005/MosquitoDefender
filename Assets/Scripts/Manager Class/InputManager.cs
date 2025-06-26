@@ -52,7 +52,14 @@ public class InputManager : ManagerBase
             { 
                 if(PlayerCharacter.Instance != null)
                 {
-                    PlayerCharacter.Instance.Horn.Activate();
+                    if (PlayerCharacter.Instance.IsChargeStation)
+                    {
+                        PlayerCharacter.Instance.Disinfection.SetGas(PlayerCharacter.Instance.MaxGasAmount);
+                    }
+                    else
+                    {
+                        PlayerCharacter.Instance.Horn.Activate();
+                    }
                 }
             }
 

@@ -15,6 +15,9 @@ public class NavGridManager : ManagerBase
 
     [SerializeField] private bool _useDebuger = true;
 
+    public int GridWidth { get { return _gridData ? _gridData.GridWidth : -1; } }
+    public int GridHeight { get { return _gridData ? _gridData.GridHeight : -1; } }
+
     private void Awake() => Initialize();
 
     protected override void Initialize()

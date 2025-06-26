@@ -118,7 +118,11 @@ public class GameManager : ManagerBase
         foreach (var kvp in grid)
         {
             var cell = kvp.Value;
-            if (cell._bIsWalkable && !cell._bIsClean) return;
+            if (cell._bIsWalkable && !cell._bIsClean)
+            {
+                UpdateCleanProgressUI();
+                return;
+            }
         }
 
         _isGameOver = true;
@@ -145,6 +149,29 @@ public class GameManager : ManagerBase
             EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.FAIL);
             _isGameOver = false;
         }
+    }
+
+    public void UpdateCleanProgressUI()
+    {
+        if (NavGridManager.Instance == null || HUDManager.Instance == null) return;
+
+        var grid = NavGridManager.Instance.GetGrid();
+
+        int totalWalkable = 0;
+        int cleaned = 0;
+
+        foreach (var cell in grid.Values)
+        {
+            if (cell._bIsWalkable)
+            {
+                totalWalkable++;
+                if (cell._bIsClean) cleaned++;
+            }
+        }
+
+        float ratio = totalWalkable > 0 ? (float)cleaned / totalWalkable : 0f;
+
+        HUDManager.Instance.UpdateCleanPercent(cleaned, totalWalkable, ratio);
     }
 
     private IEnumerator GameTimerRoutine(float StageLimitTime)

@@ -220,7 +220,7 @@ public class Childrens : Character, IFreezable
         {
             if (PlayerCharacter.Instance.IsFreeze)
             {
-                Destroy(this);
+                Destroy(gameObject);
                 return;
             }
 

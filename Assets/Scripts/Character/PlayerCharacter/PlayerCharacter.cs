@@ -21,7 +21,9 @@ public class PlayerCharacter : Character
     private float _lastY;
     private float _lastPitchAngle = 0f;
     private bool _isFreeze;
+    private bool _isChargeStation = false;
 
+    public Disinfection Disinfection => _disinfection;
     public Horn Horn => _horn;
 
     public float HornRadius => _hornRadius;
@@ -30,6 +32,7 @@ public class PlayerCharacter : Character
     public float MaxGasAmount => _maxGasAmount;
 
     public bool IsFreeze => _isFreeze;
+    public bool IsChargeStation {  get { return _isChargeStation; } set { _isChargeStation = value; } }
 
     protected override void Awake()
     {

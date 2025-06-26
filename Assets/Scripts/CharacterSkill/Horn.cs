@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Horn : MonoBehaviour
 {
+    [SerializeField] private GameObject _hornEffectPrefab; // Sprite가 붙은 프리팹
+    [SerializeField] private Transform _effectSpawnPoint;
+
     public float _freezeTime = 2f;
     public int _decibel = 0;
     public float _decibelDecayTime = 6f;
@@ -15,7 +18,19 @@ public class Horn : MonoBehaviour
         if (_isLocked) return;
 
         SoundManager.Instance.PlaySFX(3);
+        ShowHornEffect();
         StartCoroutine(HornRoutine());
+    }
+
+    private void ShowHornEffect()
+    {
+        if (_hornEffectPrefab == null) return;
+
+        Vector3 spawnPos = _effectSpawnPoint != null ? _effectSpawnPoint.position : transform.position;
+
+        GameObject effect = Instantiate(_hornEffectPrefab, spawnPos, _hornEffectPrefab.transform.rotation);
+
+        Destroy(effect, 0.3f);
     }
 
     private IEnumerator HornRoutine()
@@ -38,6 +53,9 @@ public class Horn : MonoBehaviour
         {
             InputManager.Instance.CanMove = false;
             _isLocked = true;
+
+            if (HUDManager.Instance != null)
+                HUDManager.Instance.OnOverDecibel();
 
             yield return new WaitForSeconds(3f);
 

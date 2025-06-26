@@ -50,6 +50,8 @@ public class Disinfection : MonoBehaviour
             {
                 cell._bIsClean = true;
                 SpawnEffect(cell.GetGridPos());
+
+                GameManager.Instance.UpdateCleanProgressUI();
             }
         }
     }

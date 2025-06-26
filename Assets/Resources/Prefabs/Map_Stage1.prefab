@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 706067033040473362}
   - component: {fileID: 1416727682984386881}
   - component: {fileID: 2718196372690974155}
-  - component: {fileID: 5954292191254962959}
   m_Layer: 0
   m_Name: Env_Bush_02 (8)
   m_TagString: Untagged
@@ -115,28 +114,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5954292191254962959
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 169531311555865509}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5382362465795281489, guid: f4bc11552762f2042a31896b92c86102, type: 3}
 --- !u!1 &169636773386640541
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01cb19efe56e73e489d8dd59cf236d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 2001
 --- !u!1 &340444133203517913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,7 +1023,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delayTime: 3
-  _spawnerID: 1234
 --- !u!1 &1519816686049498018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,6 +1034,8 @@ GameObject:
   - component: {fileID: 2187809979178764568}
   - component: {fileID: 3022885123030664893}
   - component: {fileID: 1015426789727449719}
+  - component: {fileID: 6512576848063098387}
+  - component: {fileID: 2165292046892135228}
   m_Layer: 0
   m_Name: Gasstation
   m_TagString: Untagged
@@ -1131,6 +1108,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &6512576848063098387
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519816686049498018}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.7
+  m_Center: {x: -0.0000004172325, y: 0.00000011920929, z: 0.7434084}
+--- !u!114 &2165292046892135228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519816686049498018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fea3ac1b8260f4e994e6fd22557bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1652823260111821566
 GameObject:
   m_ObjectHideFlags: 0
@@ -2773,7 +2783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f48ea32c395534c8dfdabe638bdaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _RunnerID: 1003
   _mode: 1
   _customStartConditions:
   - {fileID: 7490309144896166053}
@@ -3638,7 +3647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f48ea32c395534c8dfdabe638bdaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _RunnerID: 1001
   _mode: 1
   _customStartConditions:
   - {fileID: 4164083678469730129}
@@ -4282,7 +4290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f48ea32c395534c8dfdabe638bdaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _RunnerID: 1002
   _mode: 1
   _customStartConditions:
   - {fileID: 4785653286923873991}
@@ -4691,7 +4698,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delayTime: 3
-  _spawnerID: 1255
 --- !u!1 &5891410622449725471
 GameObject:
   m_ObjectHideFlags: 0
@@ -5030,7 +5036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01cb19efe56e73e489d8dd59cf236d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 2003
 --- !u!1 &6201577344065810802
 GameObject:
   m_ObjectHideFlags: 0
@@ -6775,7 +6780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01cb19efe56e73e489d8dd59cf236d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 2002
 --- !u!1 &8051481716043125368
 GameObject:
   m_ObjectHideFlags: 0
@@ -6836,7 +6840,6 @@ GameObject:
   - component: {fileID: 2818709792642595327}
   - component: {fileID: 3307491885621636743}
   - component: {fileID: 5490880321661743479}
-  - component: {fileID: 2105863727811645457}
   m_Layer: 0
   m_Name: Env_Bush_02 (1)
   m_TagString: Untagged
@@ -6909,28 +6912,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2105863727811645457
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8084746699444006700}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5382362465795281489, guid: f4bc11552762f2042a31896b92c86102, type: 3}
 --- !u!1 &8185637457770310798
 GameObject:
   m_ObjectHideFlags: 0
@@ -7196,7 +7177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delayTime: 2
-  _spawnerID: 1235
 --- !u!1 &8788768465224401030
 GameObject:
   m_ObjectHideFlags: 0
@@ -7208,7 +7188,6 @@ GameObject:
   - component: {fileID: 443011331863656027}
   - component: {fileID: 5609136910577323585}
   - component: {fileID: 1319839564138408296}
-  - component: {fileID: 5520493375999568110}
   m_Layer: 0
   m_Name: Bld_ChickenCoop
   m_TagString: Untagged
@@ -7281,28 +7260,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5520493375999568110
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8788768465224401030}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4259980055939027005, guid: 0c229022e6ea9c44ca48d6c12048f1bb, type: 3}
 --- !u!1 &8852444019645165407
 GameObject:
   m_ObjectHideFlags: 0
@@ -7668,7 +7625,6 @@ GameObject:
   - component: {fileID: 2949415940431492296}
   - component: {fileID: 6521752201353102298}
   - component: {fileID: 1261768343663552531}
-  - component: {fileID: 5614468551919836114}
   m_Layer: 0
   m_Name: Env_Bush_02 (9)
   m_TagString: Untagged
@@ -7741,25 +7697,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5614468551919836114
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9182476623708308540}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5382362465795281489, guid: f4bc11552762f2042a31896b92c86102, type: 3}
