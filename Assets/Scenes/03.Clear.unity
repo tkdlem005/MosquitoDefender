@@ -253,7 +253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f48ea32c395534c8dfdabe638bdaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _RunnerID: 11
   _mode: 1
   _customStartConditions:
   - {fileID: 1184713432}
@@ -442,7 +441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f48ea32c395534c8dfdabe638bdaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _RunnerID: 4885
   _mode: 1
   _customStartConditions:
   - {fileID: 1697591712}
@@ -982,7 +980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc02ef9daa279649b2a4070a7cc25c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneState: 5
+  _sceneState: 6
 --- !u!4 &1982348511
 Transform:
   m_ObjectHideFlags: 0

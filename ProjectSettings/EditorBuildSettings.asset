@@ -9,10 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/00.TITLE.unity
     guid: 7b9e2a5a0b0fcd54e94ae26dc32e0843
   - enabled: 1
+    path: Assets/Scenes/99.Manual.unity
+    guid: 9a8487a8df59c78439a2e373262f92b6
+  - enabled: 1
     path: Assets/Scenes/01.LOADING.unity
     guid: 070689d38a185d04ebce37ffeafaea73
   - enabled: 1
-    path: Assets/Scenes/02.PLAY.unity
+    path: Assets/Scenes/02.Play.unity
     guid: 3cef900ea657f8f4f88904e022fe2b70
   - enabled: 1
     path: Assets/Scenes/03.Clear.unity
