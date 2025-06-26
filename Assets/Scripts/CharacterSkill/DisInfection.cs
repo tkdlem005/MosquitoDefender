@@ -51,6 +51,7 @@ public class Disinfection : MonoBehaviour
                 cell._bIsClean = true;
                 SpawnEffect(cell.GetGridPos());
 
+                MiniMapGrid.Instance.RefreshCell(cell._gridPosXZ);
                 GameManager.Instance.UpdateCleanProgressUI();
             }
         }

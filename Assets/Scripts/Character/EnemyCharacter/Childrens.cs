@@ -103,31 +103,29 @@ public class Childrens : Character, IFreezable
             _lastPitchAngle = pitchAngle;
         }
 
-        float fixedYaw = 0f;
+        Vector3 dirToCamera = Camera.main.transform.position - transform.position;
+        dirToCamera.y = 0f;
+        dirToCamera.Normalize();
 
-        Quaternion targetRotation = Quaternion.Euler(pitchAngle, fixedYaw, 0f);
+        if (dirToCamera.sqrMagnitude > 0.001f)
+        {
+            Quaternion pitchRotation = Quaternion.Euler(pitchAngle, 0f, 0f);
+            Quaternion lookRotation = Quaternion.LookRotation(dirToCamera);
+            Quaternion finalRotation = lookRotation * pitchRotation;
 
-        if (forceSnapRotation)
-        {
-            transform.rotation = targetRotation;
-        }
-        else if (_pathIndex < _currentPath.Count)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
-        }
-        else
-        {
-            Quaternion flatRotation = Quaternion.Euler(0f, fixedYaw, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, flatRotation, Time.deltaTime * _rotationSpeed);
-
-            if (!isRampArea && Quaternion.Angle(transform.rotation, flatRotation) < 0.1f)
+            if (forceSnapRotation)
             {
-                _lastPitchAngle = 0f;
+                transform.rotation = finalRotation;
+            }
+            else
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, finalRotation, Time.deltaTime * _rotationSpeed);
             }
         }
 
         _lastY = currentY;
     }
+
     private void DetectPlayer()
     {
         if (_targetPlayer == null)

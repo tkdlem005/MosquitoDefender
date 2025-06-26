@@ -27,29 +27,23 @@ public class PlayerController : MonoBehaviour
 
         Vector2 input = InputManager.Instance.RawInput;
 
-        // 반드시 한 방향만 허용 (대각선 무시)
         if (Mathf.Abs(input.x) > 0 && Mathf.Abs(input.y) > 0)
         {
-            // 둘 다 입력된 경우 → 무시하거나 한쪽만 사용 (예: x 우선)
-            input.y = 0; // 또는 input.x = 0; ← 선택지
+            input.y = 0; 
         }
 
         if (input == Vector2.zero)
             return;
 
-        // 플레이어 로컬 기준 방향 (정방향만 입력됨)
         Vector3 localMoveDir = new Vector3(input.x, 0, input.y).normalized;
 
-        // 월드 기준 이동 방향 (플레이어 회전 적용)
         Vector3 worldMoveDir = _owner.transform.rotation * localMoveDir;
 
-        // 정수 방향으로 정리
         Vector2Int offsetXZ = new Vector2Int(
             Mathf.RoundToInt(worldMoveDir.x),
             Mathf.RoundToInt(worldMoveDir.z)
         );
 
-        // 다음 위치 계산
         Vector2Int nextXZ = _currentXZ + offsetXZ;
 
         if (NavGridManager.Instance.TryGetCell(nextXZ, out var nextCell) && nextCell._bIsWalkable)
@@ -87,6 +81,8 @@ public class PlayerController : MonoBehaviour
     {
         InputManager.Instance.ClearReservedDirection();
         _isMoving = false;
+
+        MiniMapGrid.Instance.UpdatePlayerPosition(_currentXZ);
     }
 
     private void SetupController(object param)

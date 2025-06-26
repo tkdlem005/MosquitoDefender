@@ -81,8 +81,6 @@ public class HUDManager : MonoBehaviour
 
     private void UpdateGameTimer(object param)
     {
-        Debug.Log(param);
-
         if (_timerText == null || param == null) return;
 
         if (param is float time)
