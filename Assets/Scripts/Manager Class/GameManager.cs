@@ -144,9 +144,11 @@ public class GameManager : ManagerBase
             _isGameOver = true;
 
             _prevGameState = _gameState;
-            _gameState = GameState.Fail;
+            _gameState = GameState.Clear;
+            //_gameState = GameState.Fail;
             EventManager.Instance.TriggerEvent(EventList.EStageEnd);
-            EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.FAIL);
+            //EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.FAIL);
+            EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.CLEAR);
             _isGameOver = false;
         }
     }
