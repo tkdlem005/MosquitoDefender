@@ -677,7 +677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 963194227}
   <TargetTransform>k__BackingField: {fileID: 0}
-  <PositionOffset>k__BackingField: {x: 0, y: 3, z: -5}
+  <PositionOffset>k__BackingField: {x: 0, y: 3.5, z: -5}
   <MinX>k__BackingField: -200
   <MaxX>k__BackingField: 200
   <MinZ>k__BackingField: -200

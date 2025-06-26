@@ -108,7 +108,7 @@ MonoBehaviour:
   _moveSpeed: 6
   _rotationSpeed: 320
   _maxGasAmount: 50
-  _hornRadius: 1.5
+  _hornRadius: 3
 --- !u!114 &7500345895536114890
 MonoBehaviour:
   m_ObjectHideFlags: 0
