@@ -6,19 +6,19 @@ using UnityEngine.UI;
 public class ManualViewer : MonoBehaviour
 {
     public Image _buttonImage;
-    public Sprite[] _sprites;
+    public Sprite _sprite;
 
     private int _count = 0;
 
     public void OnClick()
     {
-        if (_count == 2)
+        if (_count == 1)
         {
             EventManager.Instance.TriggerEvent(EventList.ESceneChangeStart, SceneState.LOADING);
             return;
         }
 
-        _buttonImage.sprite = _sprites[_count];
+        _buttonImage.sprite = _sprite;
 
         _count++;
     }
