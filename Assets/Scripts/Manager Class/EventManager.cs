@@ -16,9 +16,12 @@ public enum EventList
     ESettingMap,
     EMapSettingDone,
     EControllerSettingDone,
+    EInputEnabled,
     EUpdateHornDecibel,
     EManagerReset,
-    EStageEnd
+    EStageEnd,
+    EOnCrashEvent,
+    EOnDecibelPenalty
 }
 
 public class EventManager

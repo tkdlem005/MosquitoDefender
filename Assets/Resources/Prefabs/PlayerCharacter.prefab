@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: {fileID: 0}
-  _horn: {fileID: 0}
+  _horn: {fileID: 237645160023146188}
   _currentXZ: {x: 0, y: 0}
   _targetWorldPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1285436928218412649
@@ -155,9 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hornEffectPrefab: {fileID: 3324409134609078668, guid: 2027af3a0d8dade45977ae44b5ef2cfc, type: 3}
   _effectSpawnPoint: {fileID: 7452099887739677405}
+  _owner: {fileID: 0}
   _freezeTime: 2
   _decibel: 0
   _decibelDecayTime: 6
+  _isLocked: 0
+  _isComplain: 0
 --- !u!114 &3955559830834189310
 MonoBehaviour:
   m_ObjectHideFlags: 0

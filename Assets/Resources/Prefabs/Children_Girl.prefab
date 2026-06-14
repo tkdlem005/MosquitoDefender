@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2553942375720599270}
   - component: {fileID: 7072587001219972139}
   m_Layer: 0
-  m_Name: Children
+  m_Name: Children_Girl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2553942375720599270
 Rigidbody:
@@ -100,7 +100,7 @@ MonoBehaviour:
   _remainTime: 10
   _rotationSpeed: 10
   _chaseRange: 8
-  _moveSpeed: 5
+  _moveSpeed: 4.5
   _pathUpdateInterval: 0.7
   _playerStunTime: 3
 --- !u!1 &7130299276377466975
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2023206302, guid: 24623c9f5c65e5c4b989db2c8b1f0521, type: 3}
+  m_Sprite: {fileID: -1873600191, guid: 24623c9f5c65e5c4b989db2c8b1f0521, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

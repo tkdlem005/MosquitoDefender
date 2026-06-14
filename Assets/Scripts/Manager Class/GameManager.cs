@@ -110,10 +110,10 @@ public class GameManager : ManagerBase
 
     private void CheckAllCellsClean()
     {
-        if (NavGridManager.Instance == null)
+        if (WorldGridManager.Instance == null)
             return;
 
-        var grid = NavGridManager.Instance.GetGrid();
+        var grid = WorldGridManager.Instance.GetGrid();
 
         foreach (var kvp in grid)
         {
@@ -165,9 +165,9 @@ public class GameManager : ManagerBase
 
     public void UpdateCleanProgressUI()
     {
-        if (NavGridManager.Instance == null || HUDManager.Instance == null) return;
+        if (WorldGridManager.Instance == null || HUDManager.Instance == null) return;
 
-        var grid = NavGridManager.Instance.GetGrid();
+        var grid = WorldGridManager.Instance.GetGrid();
 
         int totalWalkable = 0;
         int cleaned = 0;

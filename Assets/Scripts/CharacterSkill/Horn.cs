@@ -6,12 +6,20 @@ public class Horn : MonoBehaviour
 {
     [SerializeField] private GameObject _hornEffectPrefab; // Sprite가 붙은 프리팹
     [SerializeField] private Transform _effectSpawnPoint;
+    [SerializeField] private PlayerCharacter _owner;
 
-    public float _freezeTime = 2f;
-    public int _decibel = 0;
-    public float _decibelDecayTime = 6f;
+    [SerializeField] private float _freezeTime = 2f;
+    [SerializeField] private int _decibel = 0;
+    [SerializeField] private float _decibelDecayTime = 6f;
 
-    private bool _isLocked = false;
+    [SerializeField] private bool _isLocked = false;
+    [SerializeField] private bool _isComplain = false;
+
+    public int Decibel => _decibel;
+    public bool IsLocked => _isLocked;
+    public bool IsComplain => _isComplain;
+
+    private void Start() => TryGetComponent(out _owner);
 
     public void Activate()
     {
@@ -19,8 +27,15 @@ public class Horn : MonoBehaviour
 
         SoundManager.Instance.PlaySFX(3);
         ShowHornEffect();
-        StartCoroutine(HornRoutine());
+        HonkHorn();
     }
+
+    public void SetHornEnabled(bool state)
+    {
+        _isLocked = !state;
+    }
+
+    public void SetComplainEventEnd() => _isComplain = false;
 
     private void ShowHornEffect()
     {
@@ -33,35 +48,32 @@ public class Horn : MonoBehaviour
         Destroy(effect, 0.3f);
     }
 
-    private IEnumerator HornRoutine()
+    private void HonkHorn()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, PlayerCharacter.Instance.HornRadius);
+        // Children 감지시 Freeze 적용
+        Collider[] hits = Physics.OverlapSphere(transform.position, _owner.HornRadius);
 
         foreach (var hit in hits)
         {
-            if (hit.TryGetComponent(out IFreezable freezeAble))
-                freezeAble.Freeze(_freezeTime);
+            if (hit.TryGetComponent(out IFreezable freezeable) && !hit.CompareTag("Player"))
+            {
+                freezeable.Freeze(_freezeTime);
+            }
         }
 
         _decibel += 3;
 
-        EventManager.Instance.TriggerEvent(EventList.EUpdateHornDecibel, _decibel);
-
         if (_decibel == 3) StartCoroutine(DecayDecibel());
 
+        EventManager.Instance.TriggerEvent(EventList.EUpdateHornDecibel, _decibel);
+
+        // Decibel 임계 이상 시 항의전화 Event 작동
         if (_decibel >= 9)
         {
-            InputManager.Instance.CanMove = false;
-            _isLocked = true;
-
-            if (HUDManager.Instance != null)
-                HUDManager.Instance.OnOverDecibel();
-
-            yield return new WaitForSeconds(3f);
-
-            InputManager.Instance.CanMove = true;
+            _isComplain = true;
+            _owner.Freeze(3f);
+            EventManager.Instance.TriggerEvent(EventList.EOnDecibelPenalty);
             _decibel = 0;
-            _isLocked = false;
         }
     }
 
@@ -79,6 +91,6 @@ public class Horn : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, PlayerCharacter.Instance.HornRadius);
+        Gizmos.DrawWireSphere(transform.position, _owner.HornRadius);
     }
 }

@@ -18,17 +18,20 @@ public class CustomEvent_SpawnChildren : CustomEvent
     {
         yield return new WaitForSeconds(_delayTime);
 
-        GameObject children = Instantiate(Resources.Load<GameObject>("Prefabs/Children"));
-        _childrenSprites = Resources.LoadAll<Sprite>("Sprites/ChildrenSheet");
+        GameObject children;
+        int randomIndex = UnityEngine.Random.Range(0, 2);
 
-        children.transform.GetChild(0).TryGetComponent(out SpriteRenderer spriteRenderer);
-
-        if (spriteRenderer != null && _childrenSprites.Length > 0)
+        switch (randomIndex)
         {
-            int randomIndex = UnityEngine.Random.Range(0, _childrenSprites.Length);
-            spriteRenderer.sprite = _childrenSprites[randomIndex];
-        }
+            case 0:
+                children = Instantiate(Resources.Load<GameObject>("Prefabs/Children_Boy"));
+                break;
 
+            default:
+                children = Instantiate(Resources.Load<GameObject>("Prefabs/Children_Girl"));
+                break;
+        }
+      
         children.transform.position = transform.parent.transform.position;
 
         SoundManager.Instance.PlaySFX(4);

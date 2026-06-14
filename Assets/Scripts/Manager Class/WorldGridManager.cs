@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class NavGridManager : ManagerBase
+public class WorldGridManager : ManagerBase
 {
-    public static NavGridManager Instance { get; private set; }
+    public static WorldGridManager Instance { get; private set; }
 
-    [SerializeField] private NavGridData _gridData;
+    [SerializeField] private WorldGridData _gridData;
 
     private Dictionary<Vector2Int, GridCell> _grid = new();
     private Dictionary<Vector2Int, bool> _cleanStatus = new();
@@ -168,9 +168,11 @@ public class NavGridManager : ManagerBase
             foreach (var cell in _grid.Values)
             {
                 if (cell._bIsClean)
-                    Gizmos.color = Color.yellow;
+                    // Gizmos.color = Color.green;
+                    Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
                 else
-                    Gizmos.color = cell._bIsWalkable ? Color.green : Color.red;
+                    // Gizmos.color = cell._bIsWalkable ? Color.gray : Color.red;
+                    Gizmos.color = cell._bIsWalkable ? new Color(0.8f, 0.8f, 0.8f, 0.15f) : new Color(1f, 0f, 0f, 0.35f);
 
                 Vector3 pos = new(
                     cell._gridPosXZ.x * _gridData.CellSize,
@@ -178,7 +180,9 @@ public class NavGridManager : ManagerBase
                     cell._gridPosXZ.y * _gridData.CellSize
                 );
 
-                Gizmos.DrawWireCube(pos, Vector3.one * _gridData.CellSize * 0.9f);
+                Vector3 size = Vector3.one * _gridData.CellSize * 0.9f;
+
+                Gizmos.DrawCube(pos, size);
             }
         }
     }

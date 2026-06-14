@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class GridVisualDeberger : MonoBehaviour
+public class GridLayoutVisualizer : MonoBehaviour
 {
-    [SerializeField] private NavGridData _gridData;
+    [SerializeField] private WorldGridData _gridData;
     [SerializeField] private bool _bIsSeeLabel = true;
 
     private Dictionary<Vector2Int, bool> _visualGrid = new();
@@ -64,9 +64,9 @@ public class GridVisualDeberger : MonoBehaviour
                 }
             }
 
-            Gizmos.color = isRed ? Color.red : Color.green;
+            Gizmos.color = isRed ? new Color(1f, 0f, 0f, 0.25f) : Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
             Vector3 worldPos = new Vector3(pos.x * _gridData.CellSize, y * _gridData.CellSize, pos.y * _gridData.CellSize);
-            Gizmos.DrawWireCube(worldPos, Vector3.one * _gridData.CellSize * 0.9f);
+            Gizmos.DrawCube(worldPos, Vector3.one * _gridData.CellSize * 0.9f);
 
             if (_bIsSeeLabel)
                 Handles.Label(worldPos + Vector3.up * 0.1f, $"{pos.x},{y},{pos.y}");

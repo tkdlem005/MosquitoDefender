@@ -9,7 +9,7 @@ public class CustomEvent_CanInput : CustomEvent
 
     public override void ExecuteEvent(Action action)
     {
-        InputManager.Instance.CanMove = _canInput;
+        EventManager.Instance.TriggerEvent(EventList.EInputEnabled, _canInput);
 
         action?.Invoke();
     }

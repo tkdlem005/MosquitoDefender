@@ -16,10 +16,12 @@ public class InputManager : ManagerBase
     private float _inputX = 0.0f;
     private float _inputZ = 0.0f;
 
-
-    public bool CanMove { get { return _canMove; } set { _canMove = value; } }
-
     private void Awake() => Initialize();
+
+    private void Start()
+    {
+        EventManager.Instance.AddListener(EventList.EInputEnabled, SetInputLockState);
+    }
 
     protected override void Initialize()
     {
@@ -46,7 +48,7 @@ public class InputManager : ManagerBase
 
     private void Update()
     {
-        if (CanMove)
+        if (_canMove)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -83,5 +85,11 @@ public class InputManager : ManagerBase
         else if (_inputX > 0) _reservedDirection = MoveDirection.Right;
         else if (_inputZ > 0) _reservedDirection = MoveDirection.Up;
         else if (_inputZ < 0) _reservedDirection = MoveDirection.Down;
+    }
+
+    private void SetInputLockState(object param)
+    {
+        bool state = (bool)param;
+        _canMove = state;
     }
 }

@@ -56,6 +56,8 @@ public class HUDManager : MonoBehaviour
         EventManager.Instance.AddListener(EventList.EUpdateGasGauge, UpdateGasGauge);
         EventManager.Instance.AddListener(EventList.EUpdateTimer, UpdateGameTimer);
         EventManager.Instance.AddListener(EventList.EUpdateHornDecibel, UpdateHornDecibel);
+        EventManager.Instance.AddListener(EventList.EOnCrashEvent, OnPlayerCollision);
+        EventManager.Instance.AddListener(EventList.EOnDecibelPenalty, OnOverDecibel);
     }
 
     private void ResetHUD(object param)
@@ -104,7 +106,7 @@ public class HUDManager : MonoBehaviour
         {
             ResetHornUI();
 
-            int volumeToActivate = decibel;
+            int volumeToActivate = Mathf.Clamp(decibel, 0, 9);
             for (int i = 0; i < volumeToActivate; i++)
             {
                 _hornVolumeImages[i].enabled = true;
@@ -120,9 +122,9 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    public void OnPlayerCollision() => StartCoroutine(MoveHUDImageToEnd());
+    public void OnPlayerCollision(object param) => StartCoroutine(MoveHUDImageToEnd());
 
-    public void OnOverDecibel() => StartCoroutine(MoveOverDecibelImage());
+    public void OnOverDecibel(object param) => StartCoroutine(MoveOverDecibelImage());
 
     private IEnumerator MoveHUDImageToEnd()
     {

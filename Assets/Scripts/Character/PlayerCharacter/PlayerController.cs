@@ -31,12 +31,12 @@ public class PlayerController : MonoBehaviour
         Vector2Int offsetXZ = DirectionToXZOffset(dir);
         Vector2Int nextXZ = _currentXZ + offsetXZ;
 
-        if (NavGridManager.Instance.TryGetCell(nextXZ, out var nextCell) &&
+        if (WorldGridManager.Instance.TryGetCell(nextXZ, out var nextCell) &&
             nextCell._bIsWalkable)
         {
             _currentXZ = nextCell._gridPosXZ;
 
-            _targetWorldPos = NavGridManager.Instance.GetWorldPosition(_currentXZ);
+            _targetWorldPos = WorldGridManager.Instance.GetWorldPosition(_currentXZ);
 
             _owner.MoveTo(_targetWorldPos);
             _isMoving = true;
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Receive Event");
 
-        _currentXZ = NavGridManager.Instance.GetXZFromWorld(PlayerCharacter.Instance.transform.position);
+        _currentXZ = WorldGridManager.Instance.GetXZFromWorld(PlayerCharacter.Instance.transform.position);
         _targetWorldPos = PlayerCharacter.Instance.transform.position;
 
         EventManager.Instance.TriggerEvent(EventList.EControllerSettingDone);

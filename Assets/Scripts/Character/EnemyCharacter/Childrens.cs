@@ -11,7 +11,7 @@ public class Childrens : Character, IFreezable
     }
 
     private Transform _targetPlayer;
-    private Pathfinding _pathFinding;
+    private PathFinding _pathFinding;
 
     private List<Vector2Int> _currentPath = new();
     private int _pathIndex = 0;
@@ -29,13 +29,15 @@ public class Childrens : Character, IFreezable
 
     [SerializeField] private float _playerStunTime = 3f;
 
+    public bool IsFrozen => _isFrozen;
+
     protected void OnEnable() => StartCoroutine(DestroyAfterTime(_remainTime));
 
     protected override void Start()
     {
         base.Start();
 
-        _pathFinding = new Pathfinding(NavGridManager.Instance);
+        _pathFinding = new PathFinding(WorldGridManager.Instance);
     }
 
 
@@ -73,7 +75,7 @@ public class Childrens : Character, IFreezable
 
         if (_pathIndex < _currentPath.Count)
         {
-            Vector3 target = NavGridManager.Instance.GetWorldPosition(_currentPath[_pathIndex]);
+            Vector3 target = WorldGridManager.Instance.GetWorldPosition(_currentPath[_pathIndex]);
             verticalDiff = target.y - currentY;
         }
         else
@@ -151,8 +153,8 @@ public class Childrens : Character, IFreezable
 
     private void UpdatePath()
     {
-        Vector2Int start = NavGridManager.Instance.GetXZFromWorld(transform.position);
-        Vector2Int end = NavGridManager.Instance.GetXZFromWorld(_targetPlayer.position);
+        Vector2Int start = WorldGridManager.Instance.GetXZFromWorld(transform.position);
+        Vector2Int end = WorldGridManager.Instance.GetXZFromWorld(_targetPlayer.position);
 
         _currentPath = _pathFinding.FindPath(start, end);
         _pathIndex = 0;
@@ -163,7 +165,7 @@ public class Childrens : Character, IFreezable
         if (_currentPath == null || _currentPath.Count == 0 || _pathIndex >= _currentPath.Count)
             return;
 
-        Vector3 targetPos = NavGridManager.Instance.GetWorldPosition(_currentPath[_pathIndex]);
+        Vector3 targetPos = WorldGridManager.Instance.GetWorldPosition(_currentPath[_pathIndex]);
 
         Vector3 dir = (targetPos - transform.position).normalized;
         transform.position += dir * _moveSpeed * Time.deltaTime;
@@ -182,31 +184,41 @@ public class Childrens : Character, IFreezable
         Gizmos.color = Color.cyan;
         for (int i = 0; i < _currentPath.Count - 1; i++)
         {
-            Vector3 from = NavGridManager.Instance.GetWorldPosition(_currentPath[i]);
-            Vector3 to = NavGridManager.Instance.GetWorldPosition(_currentPath[i + 1]);
+            Vector3 from = WorldGridManager.Instance.GetWorldPosition(_currentPath[i]);
+            Vector3 to = WorldGridManager.Instance.GetWorldPosition(_currentPath[i + 1]);
             Gizmos.DrawLine(from, to);
+        }
+
+        Vector3 startPos = WorldGridManager.Instance.GetWorldPosition(_currentPath[0]);
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(startPos, 0.3f);
+
+        Vector3 endPos = WorldGridManager.Instance.GetWorldPosition(_currentPath[_currentPath.Count - 1]);
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(endPos, 0.3f);
+    }
+
+    #region IFreezable
+    public void Freeze(float duration)
+    {
+        if (!IsFrozen)
+        {
+            StartCoroutine(ChildrensFreezeRoutine(duration));
         }
     }
 
-    public void Freeze(float duration)
+    private IEnumerator ChildrensFreezeRoutine(float duration)
     {
-        Debug.Log("Freeze!!");
-
-        if (!_isFrozen)
-            StartCoroutine(FreezeRoutine(duration));
-    }
-
-    private IEnumerator FreezeRoutine(float duration)
-    {
-        if (_isFrozen) yield break;
-
         _isFrozen = true;
         _targetPlayer = null;
+        _characterCollider.enabled = false;
 
         yield return new WaitForSeconds(duration);
 
+        _characterCollider.enabled = true;
         _isFrozen = false;
     }
+    #endregion
 
     private IEnumerator DestroyAfterTime(float time)
     {
@@ -216,18 +228,23 @@ public class Childrens : Character, IFreezable
 
     private void OnTriggerEnter(Collider other)
     {
+        // Player 충돌 감지시 Player Freeze 적용
         if (other.CompareTag("Player"))
         {
-            if (PlayerCharacter.Instance.IsFreeze)
+            if(other.TryGetComponent(out IFreezable freezable))
             {
-                Destroy(gameObject);
-                return;
+                if (freezable.IsFrozen)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+
+                _characterCollider.enabled = false;
+                freezable.Freeze(_playerStunTime);
+                _isFrozen = true;
+
+                EventManager.Instance.TriggerEvent(EventList.EOnCrashEvent);
             }
-
-            PlayerCharacter.Instance.Freeze(_playerStunTime);
-            _isFrozen = true;
-
-            HUDManager.Instance.OnPlayerCollision();
         }
     }
 }

@@ -46,7 +46,7 @@ public class Disinfection : MonoBehaviour
         Vector3 worldPos = transform.position;
         Vector2Int gridPos = new Vector2Int(Mathf.RoundToInt(worldPos.x), Mathf.RoundToInt(worldPos.z));
 
-        if (NavGridManager.Instance.TryGetCell(gridPos, out GridCell cell))
+        if (WorldGridManager.Instance.TryGetCell(gridPos, out GridCell cell))
         {
             if (!cell._bIsClean)
             {

@@ -29,13 +29,15 @@ public class SoundManager : ManagerBase
         else Destroy(gameObject);
 
         _bgmSource = gameObject.AddComponent<AudioSource>();
-        _bgmSource.volume = 0.5f;
+        _bgmSource.volume = 0.038f;
         _bgmSource.loop = true;
 
         _sfxSource = gameObject.AddComponent<AudioSource>();
+        _sfxSource.volume = 0.038f;
         _sfxSource.loop = false;
 
         _disInfectionSource = gameObject.AddComponent<AudioSource>();
+        _disInfectionSource.volume = 0.038f;
         _disInfectionSource.loop = false;
 
         InitializeEnd();

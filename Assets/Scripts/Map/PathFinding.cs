@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pathfinding
+public class PathFinding
 {
-    private NavGridManager _gridManager;
+    private WorldGridManager _gridManager;
 
-    public Pathfinding(NavGridManager gridManager)
+    public PathFinding(WorldGridManager gridManager)
     {
         _gridManager = gridManager;
     }
@@ -29,15 +29,7 @@ public class Pathfinding
             Node current = openSet.Dequeue();
 
             if (current.Position == end)
-            {
-                while (current != null)
-                {
-                    path.Add(current.Position);
-                    current = current.Parent;
-                }
-                path.Reverse();
-                return path;
-            }
+                return BuildPath(path, current);
 
             closedSet.Add(current.Position);
 
@@ -46,24 +38,42 @@ public class Pathfinding
                 if (closedSet.Contains(neighbor) || !_gridManager.IsWalkable(neighbor))
                     continue;
 
-                float tentativeG = current.G + 1;
-
-                Node neighborNode = new Node(neighbor, tentativeG, GetHeuristic(neighbor, end), current);
-
-                if (openSet.Contains(neighborNode))
-                {
-                    Node existing = openSet.Find(n => n.Equals(neighborNode));
-                    if (tentativeG >= existing.G)
-                        continue;
-                }
-
-                openSet.Enqueue(neighborNode);
+                TryAddNeighborNode(neighbor, current, end, openSet);
             }
         }
 
         return path;
     }
 
+    private List<Vector2Int> BuildPath(List<Vector2Int> path, Node current)
+    {
+        while (current != null)
+        {
+            path.Add(current.Position);
+            current = current.Parent;
+        }
+        path.Reverse();
+        return path;
+    }
+
+    private void TryAddNeighborNode(Vector2Int neighbor, Node current, Vector2Int end, PriorityQueue<Node> openSet)
+    {
+        float nextG = current.G + 1;
+        float h = GetHeuristic(neighbor, end);
+
+        Node neighborNode = new Node(neighbor, nextG, h, current);
+
+        if (openSet.Contains(neighborNode))
+        {
+            Node existing = openSet.Find(n => n.Equals(neighborNode));
+            if (nextG >= existing.G)
+                return;
+        }
+
+        openSet.Enqueue(neighborNode);
+    }
+
+    // 맨해튼 거리
     private float GetHeuristic(Vector2Int a, Vector2Int b)
     {
         return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
@@ -71,12 +81,7 @@ public class Pathfinding
 
     private IEnumerable<Vector2Int> GetNeighbors(Vector2Int pos)
     {
-        Vector2Int[] directions = {
-        new Vector2Int(1, 0),
-        new Vector2Int(-1, 0),
-        new Vector2Int(0, 1),
-        new Vector2Int(0, -1)
-    };
+        Vector2Int[] directions = { Vector2Int.right, Vector2Int.left, Vector2Int.up, Vector2Int.down };
 
         foreach (var dir in directions)
         {
@@ -93,9 +98,9 @@ public class Pathfinding
         public float F => G + H;
         public Node Parent;
 
-        public Node(Vector2Int pos, float g, float h, Node parent)
+        public Node(Vector2Int posistion, float g, float h, Node parent)
         {
-            Position = pos;
+            Position = posistion;
             G = g;
             H = h;
             Parent = parent;
@@ -119,33 +124,59 @@ public class Pathfinding
         public void Enqueue(T item)
         {
             data.Add(item);
-            int ci = data.Count - 1;
-            while (ci > 0)
+            int childIndex = data.Count - 1;
+
+            while (childIndex > 0)
             {
-                int pi = (ci - 1) / 2;
-                if (data[ci].CompareTo(data[pi]) >= 0) break;
-                (data[ci], data[pi]) = (data[pi], data[ci]);
-                ci = pi;
+                int parentIndex = (childIndex - 1) / 2;
+
+                if (data[childIndex].CompareTo(data[parentIndex]) >= 0)
+                {
+                    break;
+                }
+
+                T temp = data[childIndex];
+                data[childIndex] = data[parentIndex];
+                data[parentIndex] = temp;
+
+                childIndex = parentIndex;
             }
         }
 
         public T Dequeue()
         {
-            int li = data.Count - 1;
+            int lastIndex = data.Count - 1;
             T frontItem = data[0];
-            data[0] = data[li];
-            data.RemoveAt(li);
-            --li;
-            int pi = 0;
+
+            data[0] = data[lastIndex];
+            data.RemoveAt(lastIndex);
+            --lastIndex;
+
+            int parentIndex = 0;
+
             while (true)
             {
-                int ci = pi * 2 + 1;
-                if (ci > li) break;
-                int rc = ci + 1;
-                if (rc <= li && data[rc].CompareTo(data[ci]) < 0) ci = rc;
-                if (data[pi].CompareTo(data[ci]) <= 0) break;
-                (data[pi], data[ci]) = (data[ci], data[pi]);
-                pi = ci;
+                // 왼쪽 자식
+                int childIndex = parentIndex * 2 + 1;
+
+                if (childIndex > lastIndex) 
+                    break;
+
+                int rightChild = childIndex + 1;
+
+                if (rightChild <= lastIndex && data[rightChild].CompareTo(data[childIndex]) < 0)
+                {
+                    childIndex = rightChild;
+                }
+
+                if (data[parentIndex].CompareTo(data[childIndex]) <= 0) 
+                    break;
+
+                T temp = data[childIndex];
+                data[childIndex] = data[parentIndex];
+                data[parentIndex] = temp;
+                
+                parentIndex = childIndex;
             }
             return frontItem;
         }

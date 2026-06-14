@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5689678420291145291}
   - component: {fileID: 988224937460761334}
   m_Layer: 0
-  m_Name: NavGridManager
+  m_Name: WorldGridManager
   m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,8 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3210163858495029898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c5b227a420f9574c9ce6707c8cf6947, type: 3}
+  m_Script: {fileID: 11500000, guid: c0a83697a140b754a877880b2aee22cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gridData: {fileID: 0}
-  _useDebuger: 0
+  _useDebuger: 1

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerCharacter : Character
+public class PlayerCharacter : Character, IFreezable
 {
     public static PlayerCharacter Instance {  get; private set; }
 
@@ -20,18 +20,17 @@ public class PlayerCharacter : Character
     private Vector3? _moveTarget = null;
     private float _lastY;
     private float _lastPitchAngle = 0f;
-    private bool _isFreeze;
     private bool _isChargeStation = false;
+    private bool _isFrozen = false;
 
     public Disinfection Disinfection => _disinfection;
     public Horn Horn => _horn;
 
+    public bool IsFrozen => _isFrozen;
     public float HornRadius => _hornRadius;
     public float MoveSpeed => _moveSpeed;
     public float RotationSpeed => _rotationSpeed;
     public float MaxGasAmount => _maxGasAmount;
-
-    public bool IsFreeze => _isFreeze;
     public bool IsChargeStation {  get { return _isChargeStation; } set { _isChargeStation = value; } }
 
     protected override void Awake()
@@ -135,7 +134,7 @@ public class PlayerCharacter : Character
     public void ResetPlayer()
     {
         _moveTarget = null;
-        _isFreeze = false;
+        _isFrozen = false;
 
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
@@ -149,8 +148,6 @@ public class PlayerCharacter : Character
     {
         _disinfection.Execute();
     }
-
-    public void Freeze(float time) => StartCoroutine(FreezePlayer(time));
 
     public void MoveTo(Vector3 target)
     {
@@ -175,14 +172,37 @@ public class PlayerCharacter : Character
         }
     }
 
-    IEnumerator FreezePlayer(float time)
+    #region IFreezable
+    public void Freeze(float time)
     {
-        InputManager.Instance.CanMove = false;
-        _isFreeze = true;
+        if (!IsFrozen)
+        {
+            StartCoroutine(PlayerFreezeRoutine(time));
+        }
+    }
+
+    IEnumerator PlayerFreezeRoutine(float time)
+    {
+        if (IsFrozen) yield break;
+
+        // 입력 비활성화 (Freeze 진입)
+        EventManager.Instance.TriggerEvent(EventList.EInputEnabled, false);
+        _isFrozen = true;
+        _horn.SetHornEnabled(false);
 
         yield return new WaitForSeconds(time);
 
-        InputManager.Instance.CanMove = true;
-        _isFreeze = false;
+        // 입력 활성화 (Freeze 종료)
+        EventManager.Instance.TriggerEvent(EventList.EInputEnabled, true);
+        _isFrozen = false;
+
+        if (_horn.IsComplain)
+        {
+            _horn.SetComplainEventEnd();
+            EventManager.Instance.TriggerEvent(EventList.EUpdateHornDecibel, _horn.Decibel);
+        }
+            
+        _horn.SetHornEnabled(true);
     }
+    #endregion
 }

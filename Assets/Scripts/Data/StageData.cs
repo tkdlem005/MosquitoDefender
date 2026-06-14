@@ -9,7 +9,7 @@ public class StageData : ScriptableObject
     public float _stageTime = 0.0f;
 
     [Space(20f), Header("맵 정보")] 
-    public NavGridData _mapData;
+    public WorldGridData _mapData;
     public GameObject _mapPrefabs;
 
     [Space(20f), Header("카메라 세팅")]

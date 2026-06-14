@@ -29,9 +29,9 @@ public class MiniMapGrid : MonoBehaviour
 
     public void GenerateMiniMap(object param)
     {
-        var grid = NavGridManager.Instance.GetGrid();
-        _gridWidth = NavGridManager.Instance.GridWidth;
-        _gridHeight = NavGridManager.Instance.GridHeight;
+        var grid = WorldGridManager.Instance.GetGrid();
+        _gridWidth = WorldGridManager.Instance.GridWidth;
+        _gridHeight = WorldGridManager.Instance.GridHeight;
 
         // 패널 위치 및 크기 설정 (앵커 기준: Right Bottom)
         _mapContainer.anchorMin = new Vector2(1f, 0f);
@@ -81,7 +81,7 @@ public class MiniMapGrid : MonoBehaviour
     {
         if (_cellUIObjects.TryGetValue(pos, out var cellGO))
         {
-            if (NavGridManager.Instance.TryGetCell(pos, out var cell))
+            if (WorldGridManager.Instance.TryGetCell(pos, out var cell))
             {
                 UpdateCellColor(cellGO, cell);
             }
@@ -93,7 +93,7 @@ public class MiniMapGrid : MonoBehaviour
         // 이전 위치가 유효하면 원래 셀 색상으로 복원
         if (_cellUIObjects.TryGetValue(_prevPlayerPos, out var prevCellGO))
         {
-            if (NavGridManager.Instance.TryGetCell(_prevPlayerPos, out var prevCell))
+            if (WorldGridManager.Instance.TryGetCell(_prevPlayerPos, out var prevCell))
                 UpdateCellColor(prevCellGO, prevCell);
         }
 

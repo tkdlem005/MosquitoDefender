@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NavGridData", menuName = "Grid Data", order = 1)]
-public class NavGridData : ScriptableObject
+public class WorldGridData : ScriptableObject
 {
     #region Struct
     [System.Serializable]
